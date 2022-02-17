@@ -63,4 +63,11 @@
   <ItemGroup>
     <None Include="Bzs.Mensa.Server.Database.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Benutzer.sql" />
+    <Build Include="dbo\Tables\Klasse.sql" />
+    <Build Include="dbo\Tables\Allergie.sql" />
+    <Build Include="dbo\Tables\BenutzerAllergie.sql" />
+    <Build Include="dbo\Tables\Essen.sql" />
+  </ItemGroup>
 </Project>
