@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=RM-2017-06\SQLEXPRESS2016;Database=BzsMensa;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir Context -Context BzsMensaContext -Force
