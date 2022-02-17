@@ -60,4 +60,7 @@
     <Folder Include="dbo\Tables" />
     <Folder Include="Scripts" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Bzs.Mensa.Server.Database.RM.publish.xml" />
+  </ItemGroup>
 </Project>
