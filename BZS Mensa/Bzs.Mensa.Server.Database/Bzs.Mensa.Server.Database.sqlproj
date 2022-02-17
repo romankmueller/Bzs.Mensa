@@ -61,6 +61,6 @@
     <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bzs.Mensa.Server.Database.RM.publish.xml" />
+    <None Include="Bzs.Mensa.Server.Database.publish.xml" />
   </ItemGroup>
 </Project>
