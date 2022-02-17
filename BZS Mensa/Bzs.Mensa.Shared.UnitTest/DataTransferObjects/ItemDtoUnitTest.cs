@@ -19,6 +19,7 @@ namespace Bzs.Mensa.Shared.UnitTest.DataTransferObjects
         {
             ItemDto item = new ItemDto();
 
+
             Assert.IsNotNull(item);
             Assert.IsFalse(item.Id == Guid.Empty);
         }
