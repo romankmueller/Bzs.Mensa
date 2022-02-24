@@ -25,7 +25,6 @@ namespace Bzs.Mensa.Server.Services
             string connectionString = configuration.GetConnectionString(@"BzsMensa");
             if (connectionString == null)
             {
-                this.LogError(@"There is no connection string 'BzsMensa' configured.");
                 throw new ConfigurationErrorsException(@"There is no connection string 'BzsMensa' configured.");
             }
 
