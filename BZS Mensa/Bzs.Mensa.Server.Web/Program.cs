@@ -1,7 +1,14 @@
+using Bzs.Mensa.Server.Services;
+using Bzs.Mensa.Shared.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Attach services.
+builder.Services.AddScoped<ISecurityService, SecurityService>();
+builder.Services.AddScoped<IBenutzerService, BenutzerService>();
 
 var app = builder.Build();
 

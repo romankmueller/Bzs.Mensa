@@ -1,18 +1,22 @@
 ﻿using Bzs.Mensa.Server.DataAccess.Context;
 using Bzs.Mensa.Server.DataAccess.Models;
 using Bzs.Mensa.Shared.DataTransferObjects;
+using Bzs.Mensa.Shared.Services;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bzs.Mensa.Server.Services
 {
-    public class BenutzerService : ServiceBase
+    /// <summary>
+    /// Represents a user service.
+    /// </summary>
+    public class BenutzerService : ServiceBase, IBenutzerService
     {
-        public BenutzerService(IConfiguration configuration) : base(configuration)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BenutzerService" /> class.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        public BenutzerService(IConfiguration configuration)
+            : base(configuration)
         {
         }
 
@@ -56,8 +60,16 @@ namespace Bzs.Mensa.Server.Services
                     benutzerDto.Vegetarisch = benutzer.Veggetarisch;
                 }
             }
+
             return benutzerDto;
         }
 
+        /// <summary>
+        /// Creates the administrator.
+        /// </summary>
+        public void CreateAdministrator()
+        {
+            // TODO: Administrator erzeugen, wenn dieser noch nicht existiert.
+        }
     }
 }
