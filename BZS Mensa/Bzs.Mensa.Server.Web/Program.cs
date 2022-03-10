@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 // Attach services.
 builder.Services.AddScoped<ISecurityService, SecurityService>();
 builder.Services.AddScoped<IBenutzerService, BenutzerService>();
+builder.Services.AddScoped<IAllergienService, AllergienService>();
 
 var app = builder.Build();
 

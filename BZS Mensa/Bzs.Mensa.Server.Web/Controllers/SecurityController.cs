@@ -39,10 +39,20 @@ namespace Bzs.Mensa.Server.Web.Controllers
         /// Tests the controller.
         /// </summary>
         /// <returns>The result.</returns>
-        [HttpGet()]
-        public ActionResult<string> Test()
+        [HttpGet("test")]
+        public ActionResult<string> TestMitPfad()
         {
             return "Test: OK";
+        }
+
+        /// <summary>
+        /// Tests the controller.
+        /// </summary>
+        /// <returns>The result.</returns>
+        [HttpGet()]
+        public ActionResult<string> TestOhnePfad()
+        {
+            return "OK";
         }
 
         /// <summary>
