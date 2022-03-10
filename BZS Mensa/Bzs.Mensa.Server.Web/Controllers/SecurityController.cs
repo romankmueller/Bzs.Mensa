@@ -20,19 +20,29 @@ namespace Bzs.Mensa.Server.Web.Controllers
     {
         private readonly IConfiguration configuration;
         private readonly ISecurityService securityService;
-        private readonly IBenutzerService userService;
+        private readonly IBenutzerService benutzerService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SecurityController" /> class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
         /// <param name="securityService">The security service.</param>
-        /// <param name="userService">The user service.</param>
-        public SecurityController(IConfiguration configuration, ISecurityService securityService, IBenutzerService userService)
+        /// <param name="benutzerService">The user service.</param>
+        public SecurityController(IConfiguration configuration, ISecurityService securityService, IBenutzerService benutzerService)
         {
             this.configuration = configuration;
             this.securityService = securityService;
-            this.userService = userService;
+            this.benutzerService = benutzerService;
+        }
+
+        /// <summary>
+        /// Tests the controller.
+        /// </summary>
+        /// <returns>The result.</returns>
+        [HttpGet()]
+        public ActionResult<string> Test()
+        {
+            return "Test: OK";
         }
 
         /// <summary>
@@ -58,7 +68,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
                 password = usernamePassword.Substring(separatorIndex + 1);
             }
 
-            this.userService.CreateAdministrator();
+            this.benutzerService.CreateAdministrator();
             AuthenticationUser authenticationUser = ((SecurityService)this.securityService).GetLoginUser(userName, password);
             if (authenticationUser == null)
             {
