@@ -101,7 +101,19 @@ namespace Bzs.Mensa.Server.Services
                     entity.KlasseId = item.KlasseId;
                     entity.Veggetarisch = item.Vegetarisch;
 
-                    // TODO: Allergien aktualisieren.
+
+                    foreach (BenutzerAllergieEditDto Ba in item.AllergieItems)
+                    {
+                        BenutzerAllergie entityAllergie = ctx.BenutzerAllergies.FirstOrDefault(f => f.BenutzerId == item.Id && f.AllergieId == Ba.AllergieId);
+                        if (entityAllergie == null)
+                        {
+                            BenutzerAllergie benutzerAllergie = new BenutzerAllergie();
+                            benutzerAllergie.Id = new Guid();
+                            benutzerAllergie.BenutzerId = item.Id;
+                            benutzerAllergie.AllergieId = Ba.AllergieId;
+                            ctx.BenutzerAllergies.Add(benutzerAllergie);
+                        }
+                    }
 
                     try
                     {
@@ -151,7 +163,38 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public void CreateAdministrator()
         {
-            // TODO: Administrator erzeugen, wenn dieser noch nicht existiert.
+            using (BzsMensaContext ctx = this.CreateContext())
+            {
+                Klasse KlasseEntity = ctx.Klasses.FirstOrDefault(f => f.Id == Guid.Empty);
+                if (KlasseEntity == null)
+                {
+                    KlasseEntity = new Klasse();
+                    KlasseEntity.Id = Guid.Empty;
+                    KlasseEntity.Schicht1 = false;
+                    KlasseEntity.Schicht2 = false;
+                    KlasseEntity.Bezeichnung = "Admins";
+                    KlasseEntity.Geloescht = false;
+                    ctx.Klasses.Add(KlasseEntity);
+                }
+                else
+                {
+                    KlasseEntity.Geloescht = false;
+                }
+
+                Benutzer entity = ctx.Benutzers.FirstOrDefault(f => f.BenutzerName == "admin");
+                if (entity == null)
+                {
+                    entity = new Benutzer();
+                    entity.Id = new Guid();
+                    entity.BenutzerName = "admin";
+                    entity.Email = "admin@admin.ch";
+                    entity.KlasseId = Guid.Empty;
+                    entity.Veggetarisch = false;
+                    entity.Geloescht = false;
+                    ctx.Benutzers.Add(entity);
+                    ctx.SaveChanges();
+                }
+            }
         }
     }
 }
