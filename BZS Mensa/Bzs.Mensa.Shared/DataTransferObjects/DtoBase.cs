@@ -7,7 +7,7 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
     /// Represents a base data transfer object.
     /// </summary>
     [JsonObject]
-    public class DtoBase
+    public abstract class DtoBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DtoBase" /> class.

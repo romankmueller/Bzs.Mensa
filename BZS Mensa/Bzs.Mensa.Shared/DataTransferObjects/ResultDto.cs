@@ -38,6 +38,16 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ResultDto" /> class.
+        /// </summary>
+        /// <param name="e">The exception.</param>
+        public ResultDto(Exception e)
+        {
+            this.Succsessful = false;
+            this.ErrorMessage = e.Message + Environment.NewLine + e.StackTrace;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the result is successful.
         /// </summary>
         [JsonProperty("@successful")]

@@ -6,7 +6,7 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
     /// Represents a login result data transfer object.
     /// </summary>
     [JsonObject]
-    public class LoginResultDto : ResultDto
+    public sealed class LoginResultDto : ResultDto
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginResultDto" /> class.

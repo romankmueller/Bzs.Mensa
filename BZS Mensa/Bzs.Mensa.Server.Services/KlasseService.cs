@@ -8,61 +8,43 @@ using Microsoft.Extensions.Configuration;
 namespace Bzs.Mensa.Server.Services
 {
     /// <summary>
-    /// Represents an allergy service.
+    /// Represents a class service.
     /// </summary>
-    public class AllergienService : ServiceBase, IAllergienService
+    public sealed class KlasseService : ServiceBase, IKlasseService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AllergienService" /> class.
+        /// Initializes a new instance of the <see cref="KlasseService" /> class.
         /// </summary>
         /// <param name="configuration"></param>
-        public AllergienService(IConfiguration configuration)
-        : base(configuration)
+        public KlasseService(IConfiguration configuration)
+            : base(configuration)
         {
-        }
-
-        [Obsolete]
-        public List<AllergieEditDto> AllergienListe()
-        {
-            List<AllergieEditDto> list = new List<AllergieEditDto>();
-            using (BzsMensaContext ctx = this.CreateContext())
-            {
-                foreach (Allergie entity in ctx.Allergies.Where(f => !f.Geloescht))
-                {
-                    AllergieEditDto item = new AllergieEditDto();
-                    item.Id = entity.Id;
-                    item.Bezeichnung = entity.Bezeichnung;
-                    list.Add(item);
-                }
-
-            }
-            return list;
         }
 
         /// <inheritdoc />
-        public async Task<List<AllergieEditDto>> GetAllergienAsync()
+        public async Task<List<KlasseEditDto>> GetKlassenAsync()
         {
-            List<AllergieEditDto> list = new List<AllergieEditDto>();
-            using (BzsMensaContext ctx = this.CreateContext())
+            List<KlasseEditDto> data = new List<KlasseEditDto>();
+            using (var ctx = this.CreateContext())
             {
-                list = await ctx.Allergies.Where(f => !f.Geloescht).Select(f => new AllergieEditDto(f.Id, f.Bezeichnung)).ToListAsync().ConfigureAwait(true);
+                data = await ctx.Klasses.Where(f => !f.Geloescht).Select(f => new KlasseEditDto(f.Id, f.Bezeichnung, f.Schicht1, f.Schicht2)).ToListAsync().ConfigureAwait(true);
             }
 
-            return list;
+            return data;
         }
 
         /// <inheritdoc />
-        public async Task<AllergieEditDto> GetAllergieAsync(Guid id)
+        public async Task<KlasseEditDto> GetKlasseAsync(Guid id)
         {
-            AllergieEditDto data = null;
-            using (BzsMensaContext ctx = this.CreateContext())
+            KlasseEditDto data = null;
+            using (var ctx = this.CreateContext())
             {
-                Allergie entity = await ctx.Allergies.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Klasse entity = await ctx.Klasses.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity != null)
                 {
                     if (!entity.Geloescht)
                     {
-                        data = new AllergieEditDto(entity.Id, entity.Bezeichnung);
+                        data = new KlasseEditDto(entity.Id, entity.Bezeichnung, entity.Schicht1, entity.Schicht2);
                     }
                 }
             }
@@ -71,28 +53,32 @@ namespace Bzs.Mensa.Server.Services
         }
 
         /// <inheritdoc />
-        public async Task<ResultDto> SaveAllergieAsync(AllergieEditDto item)
+        public async Task<ResultDto> SaveKlasseAsync(KlasseEditDto item)
         {
             if (item != null)
             {
                 using (BzsMensaContext ctx = this.CreateContext())
                 {
-                    Allergie entity = await ctx.Allergies.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                    Klasse entity = await ctx.Klasses.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                     if (entity == null)
                     {
-                        entity = new Allergie();
+                        entity = new Klasse();
                         entity.Id = item.Id;
                         entity.Bezeichnung = string.Empty;
+                        entity.Schicht1 = false;
+                        entity.Schicht2 = false;
                         entity.Geloescht = false;
-                        ctx.Allergies.Add(entity);
+                        ctx.Klasses.Add(entity);
                     }
 
                     if (entity.Geloescht)
                     {
-                        return new ResultDto(@"Allergie ist bereits gelöscht.");
+                        return new ResultDto(@"Klasse ist bereits gelöscht.");
                     }
 
                     entity.Bezeichnung = item.Bezeichnung;
+                    entity.Schicht1 = item.Schicht1;
+                    entity.Schicht2 = item.Schicht2;
 
                     try
                     {
@@ -110,14 +96,14 @@ namespace Bzs.Mensa.Server.Services
         }
 
         /// <inheritdoc />
-        public async Task<ResultDto> DeleteAllergieAsync(Guid id)
+        public async Task<ResultDto> DeleteKlasseAsync(Guid id)
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Allergie entity = await ctx.Allergies.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Klasse entity = await ctx.Klasses.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity == null)
                 {
-                    return new ResultDto("Allergie konnte nicht gefunden werden.");
+                    return new ResultDto("Klasse konnte nicht gefunden werden.");
                 }
 
                 if (entity.Geloescht)

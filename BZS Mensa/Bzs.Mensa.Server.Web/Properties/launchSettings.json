@@ -1,21 +1,21 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:9299",
-      "sslPort": 44312
+      "applicationUrl": "http://localhost:52435/",
+      "sslPort": 44320
     }
   },
   "profiles": {
     "Bzs.Mensa.Server.Web": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7038;http://localhost:5038",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:7038;http://localhost:5038",
+      "dotnetRunMessages": true
     },
     "IIS Express": {
       "commandName": "IISExpress",

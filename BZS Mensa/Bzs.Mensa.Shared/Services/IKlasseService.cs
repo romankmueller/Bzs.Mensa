@@ -3,35 +3,35 @@
 namespace Bzs.Mensa.Shared.Services
 {
     /// <summary>
-    /// Represents an interface of an allergy service.
+    /// Represents an interface of a class service.
     /// </summary>
-    public interface IAllergienService
+    public interface IKlasseService
     {
         /// <summary>
-        /// Returns all allergies.
+        /// Returns all classes.
         /// </summary>
         /// <returns>The data.</returns>
-        Task<List<AllergieEditDto>> GetAllergienAsync();
+        Task<List<KlasseEditDto>> GetKlassenAsync();
 
         /// <summary>
-        /// Returns an allergy.
+        /// Returns a class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>The data.</returns>
-        Task<AllergieEditDto> GetAllergieAsync(Guid id);
+        Task<KlasseEditDto> GetKlasseAsync(Guid id);
 
         /// <summary>
-        /// Saves an allergy.
+        /// Saves a class.
         /// </summary>
         /// <param name="item">The item to save.</param>
         /// <returns>The result.</returns>
-        Task<ResultDto> SaveAllergieAsync(AllergieEditDto item);
+        Task<ResultDto> SaveKlasseAsync(KlasseEditDto item);
 
         /// <summary>
-        /// Deletes an allergy.
+        /// Deletes a class.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="id">The class identifier.</param>
         /// <returns>The result.</returns>
-        Task<ResultDto> DeleteAllergieAsync(Guid id);
+        Task<ResultDto> DeleteKlasseAsync(Guid id);
     }
 }
