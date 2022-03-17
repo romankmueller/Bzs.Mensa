@@ -54,7 +54,8 @@ namespace Bzs.Mensa.Server.Services
                 Benutzer benutzer = await ctx.Benutzers
                     .Include(f => f.BenutzerAllergies)
                     .ThenInclude(f => f.Allergie)
-                    .FirstOrDefaultAsync(f => f.Id == id && !f.Geloescht).ConfigureAwait(true);
+                    .FirstOrDefaultAsync(f => f.Id == id && !f.Geloescht)
+                    .ConfigureAwait(true);
                 if (benutzer != null)
                 {
                     data = new BenutzerEditDto();
