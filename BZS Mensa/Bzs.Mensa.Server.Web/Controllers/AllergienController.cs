@@ -7,7 +7,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
     /// <summary>
     /// Represents an allergy controller.
     /// </summary>
-    [Route("api/allergien")]
+    [Route("api/[controller]")]
     [ApiController]
     public sealed class AllergienController : ControllerBase
     {

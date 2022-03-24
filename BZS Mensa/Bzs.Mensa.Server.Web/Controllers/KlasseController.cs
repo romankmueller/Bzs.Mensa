@@ -1,4 +1,5 @@
-﻿using Bzs.Mensa.Shared.Services;
+﻿using Bzs.Mensa.Shared.DataTransferObjects;
+using Bzs.Mensa.Shared.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,49 @@ namespace Bzs.Mensa.Server.Web.Controllers
         public KlasseController(IConfiguration configuration, IKlasseService klasseService)
         {
             this.klasseService = klasseService;
+        }
+
+        /// <summary>
+        /// Returns all classes.
+        /// </summary>
+        /// <returns>The data.</returns>
+        [HttpGet()]
+        public async Task<ActionResult<List<KlasseEditDto>>> KlassenAsync()
+        {
+            return await this.klasseService.GetKlassenAsync().ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Returns the class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The data.</returns>
+        [HttpGet("item/{id}")]
+        public async Task<ActionResult<KlasseEditDto>> KlasseAsync(Guid id)
+        {
+            return await this.klasseService.GetKlasseAsync(id).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Saves the class.
+        /// </summary>
+        /// <param name="item">The item to save.</param>
+        /// <returns>The result.</returns>
+        [HttpPost("item")]
+        public async Task<ActionResult<ResultDto>> SaveKlasseAsync([FromBody] KlasseEditDto item)
+        {
+            return await this.klasseService.SaveKlasseAsync(item).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Deletes the class.
+        /// </summary>
+        /// <param name="id">The identifier of the item to delete.</param>
+        /// <returns>The result.</returns>
+        [HttpDelete("item/{id}")]
+        public async Task<ActionResult<ResultDto>> DeleteKlasseAsync(Guid id)
+        {
+            return await this.klasseService.DeleteKlasseAsync(id).ConfigureAwait(true);
         }
     }
 }

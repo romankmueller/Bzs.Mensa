@@ -46,6 +46,34 @@ namespace Bzs.Mensa.Server.Services
         }
 
         /// <inheritdoc />
+        public async Task<List<BenutzerEditDto>> GetBenutzerAsync()
+        {
+            List<BenutzerEditDto> data = new List<BenutzerEditDto>();
+            using (BzsMensaContext ctx = this.CreateContext())
+            {
+                List<Benutzer> benutzer = await ctx.Benutzers
+                    .Include(f => f.BenutzerAllergies)
+                    .ThenInclude(f => f.Allergie)
+                    .Where(f => !f.Geloescht)
+                    .ToListAsync()
+                    .ConfigureAwait(true);
+                foreach (Benutzer benutzerEntity in benutzer)
+                {
+                    BenutzerEditDto dataItem = new BenutzerEditDto();
+                    dataItem.Id = benutzerEntity.Id;
+                    dataItem.Email = benutzerEntity.Email;
+                    dataItem.Benutzername = benutzerEntity.BenutzerName;
+                    dataItem.KlasseId = benutzerEntity.KlasseId;
+                    dataItem.Vegetarisch = benutzerEntity.Veggetarisch;
+                    dataItem.AllergieItems = benutzerEntity.BenutzerAllergies.Select(f => new BenutzerAllergieEditDto(f.Id, f.AllergieId, f.Allergie.Bezeichnung)).ToList();
+                    data.Add(dataItem);
+                }
+            }
+
+            return data;
+        }
+
+        /// <inheritdoc />
         public async Task<BenutzerEditDto> GetBenutzerAsync(Guid id)
         {
             BenutzerEditDto data = null;
@@ -122,6 +150,7 @@ namespace Bzs.Mensa.Server.Services
                     }
                     catch (DbUpdateException e)
                     {
+                        Log.Debug(e);
                         return new ResultDto(e);
                     }
                 }
@@ -155,6 +184,38 @@ namespace Bzs.Mensa.Server.Services
                 }
                 catch (DbUpdateException e)
                 {
+                    Log.Debug(e);
+                    return new ResultDto(e);
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public async Task<ResultDto> SetBenutzerPasswortAsync(BenutzerPasswortDto item)
+        {
+            using (BzsMensaContext ctx = this.CreateContext())
+            {
+                Benutzer entity = await ctx.Benutzers.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                if (entity == null)
+                {
+                    return new ResultDto("Benutzer konnte nicht gefunden werden.");
+                }
+
+                if (entity.Geloescht)
+                {
+                    return new ResultDto("Benutzer ist bereits gelöscht.");
+                }
+
+                entity.Passwort = item.Passwort;
+
+                try
+                {
+                    await ctx.SaveChangesAsync().ConfigureAwait(true);
+                    return new ResultDto(true);
+                }
+                catch (DbUpdateException e)
+                {
+                    Log.Debug(e);
                     return new ResultDto(e);
                 }
             }
@@ -188,11 +249,27 @@ namespace Bzs.Mensa.Server.Services
                     entity.Id = new Guid();
                     entity.BenutzerName = "admin";
                     entity.Email = "admin@admin.ch";
+                    entity.Passwort = "admin123";
                     entity.KlasseId = Guid.Empty;
                     entity.Veggetarisch = false;
                     entity.Geloescht = false;
                     ctx.Benutzers.Add(entity);
+                }
+                else
+                {
+                    if (entity.Geloescht)
+                    {
+                        entity.Geloescht = false;
+                    }
+                }
+
+                try
+                {
                     ctx.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    Log.Debug(e);
                 }
             }
         }

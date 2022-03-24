@@ -19,6 +19,13 @@ namespace Bzs.Mensa.Shared.Services
         /// </summary>
         /// <param name="id">The user identifier.</param>
         /// <returns>The data.</returns>
+        Task<List<BenutzerEditDto>> GetBenutzerAsync();
+
+        /// <summary>
+        /// Returns the user.
+        /// </summary>
+        /// <param name="id">The user identifier.</param>
+        /// <returns>The data.</returns>
         Task<BenutzerEditDto> GetBenutzerAsync(Guid id);
 
         /// <summary>
@@ -34,6 +41,13 @@ namespace Bzs.Mensa.Shared.Services
         /// <param name="id">The identifier.</param>
         /// <returns>The result.</returns>
         Task<ResultDto> DeleteBenutzerAsync(Guid id);
+
+        /// <summary>
+        /// Sets the user password.
+        /// </summary>
+        /// <param name="item">The item to save.</param>
+        /// <returns>The result.</returns>
+        Task<ResultDto> SetBenutzerPasswortAsync(BenutzerPasswortDto item);
 
         /// <summary>
         /// Creates the administrator.

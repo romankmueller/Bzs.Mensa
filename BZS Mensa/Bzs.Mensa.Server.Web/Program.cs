@@ -11,6 +11,7 @@ builder.Services.AddScoped<ISecurityService, SecurityService>();
 builder.Services.AddScoped<IBenutzerService, BenutzerService>();
 builder.Services.AddScoped<IAllergienService, AllergienService>();
 builder.Services.AddScoped<IKlasseService, KlasseService>();
+builder.Services.AddScoped<IEssenService, EssenService>();
 
 var app = builder.Build();
 
