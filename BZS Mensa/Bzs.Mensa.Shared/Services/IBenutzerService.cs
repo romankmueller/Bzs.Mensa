@@ -52,6 +52,7 @@ namespace Bzs.Mensa.Shared.Services
         /// <summary>
         /// Creates the administrator.
         /// </summary>
-        void CreateAdministrator();
+        /// <returns>The task.</returns>
+        Task CreateAdministratorAsync();
     }
 }

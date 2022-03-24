@@ -203,7 +203,7 @@ namespace Bzs.Mensa.Server.Services
 
                 if (entity.Geloescht)
                 {
-                    return new ResultDto("Benutzer ist bereits gelöscht.");
+                    return new ResultDto("Benutzer wurde bereits gelöscht.");
                 }
 
                 entity.Passwort = item.Passwort;
@@ -222,7 +222,7 @@ namespace Bzs.Mensa.Server.Services
         }
 
         /// <inheritdoc />
-        public void CreateAdministrator()
+        public async Task CreateAdministratorAsync()
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
@@ -265,7 +265,7 @@ namespace Bzs.Mensa.Server.Services
 
                 try
                 {
-                    ctx.SaveChanges();
+                    await ctx.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateException e)
                 {

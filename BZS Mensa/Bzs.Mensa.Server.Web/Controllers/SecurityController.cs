@@ -78,7 +78,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
                 password = usernamePassword.Substring(separatorIndex + 1);
             }
 
-            this.benutzerService.CreateAdministrator();
+            await this.benutzerService.CreateAdministratorAsync().ConfigureAwait(true);
             AuthenticationUser authenticationUser = ((SecurityService)this.securityService).GetLoginUser(userName, password);
             if (authenticationUser == null)
             {
