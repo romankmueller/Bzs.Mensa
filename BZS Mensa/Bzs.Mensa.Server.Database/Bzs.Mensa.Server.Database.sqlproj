@@ -69,5 +69,9 @@
     <Build Include="dbo\Tables\Allergie.sql" />
     <Build Include="dbo\Tables\BenutzerAllergie.sql" />
     <Build Include="dbo\Tables\Essen.sql" />
+    <Build Include="dbo\Tables\Feiertag.sql" />
+    <Build Include="dbo\Tables\Ferien.sql" />
+    <Build Include="dbo\Tables\EssenStandard.sql" />
+    <Build Include="dbo\Tables\EssenMenu.sql" />
   </ItemGroup>
 </Project>

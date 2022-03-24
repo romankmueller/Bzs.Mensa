@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Feiertag]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL,
+	[Datum] DATE NOT NULL,
+	[Text] NVARCHAR(100) NOT NULL,
+	CONSTRAINT [PK_Feiertag] PRIMARY KEY ([Id])
+)
