@@ -125,7 +125,7 @@ namespace Bzs.Mensa.Server.Services
                     return new ResultDto(true);
                 }
 
-                // TODO: Prüfen, wenn die Allergie schon verwendet wird, dann darf sie nicht gelöscht werden.
+                // TODO: Prüfen: Wenn die Allergie schon verwendet wird, dann darf sie nicht gelöscht werden.
 
                 entity.Geloescht = true;
 

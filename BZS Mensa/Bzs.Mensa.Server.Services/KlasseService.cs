@@ -111,7 +111,7 @@ namespace Bzs.Mensa.Server.Services
                     return new ResultDto(true);
                 }
 
-                // TODO: Wenn die Klasse verwendet wird, darf sie nicht gelöscht werden.
+                // TODO: Prüfen: Wenn die Klasse verwendet wird, darf sie nicht gelöscht werden.
 
                 entity.Geloescht = true;
 
