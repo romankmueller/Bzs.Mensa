@@ -16,6 +16,7 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         {
             this.BenutzerId = Guid.Empty;
             this.Datum = DateTime.Today;
+            this.Essen = false;
         }
 
         /// <summary>
@@ -24,11 +25,12 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         /// <param name="id">The identifier.</param>
         /// <param name="benutzerId">The user identifier.</param>
         /// <param name="datum">The date.</param>
-        public EssenEditDto(Guid id, Guid benutzerId, DateTime datum)
+        public EssenEditDto(Guid id, Guid benutzerId, DateTime datum, bool essen)
             : base(id)
         {
             this.BenutzerId = benutzerId;
             this.Datum = datum;
+            this.Essen = essen;
         }
 
         /// <summary>
@@ -58,5 +60,11 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
                 this.DatumIso = value.ToIsoDate();
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the user eats.
+        /// </summary>
+        [JsonProperty(@"essen")]
+        public bool Essen { get; set; }
     }
 }
