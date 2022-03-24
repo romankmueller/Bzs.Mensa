@@ -125,9 +125,11 @@ namespace Bzs.Mensa.Server.Services
                     return new ResultDto(true);
                 }
 
-                // TODO: Prüfen: Wenn die Allergie schon verwendet wird, dann darf sie nicht gelöscht werden.
-
-                entity.Geloescht = true;
+                bool allergieVorhanden = ctx.BenutzerAllergies.Any(f => f.AllergieId == id);
+                if (!allergieVorhanden)
+                {
+                    entity.Geloescht = true;
+                }
 
                 try
                 {

@@ -111,9 +111,11 @@ namespace Bzs.Mensa.Server.Services
                     return new ResultDto(true);
                 }
 
-                // TODO: Prüfen: Wenn die Klasse verwendet wird, darf sie nicht gelöscht werden.
-
-                entity.Geloescht = true;
+                bool benutzerVorhanden = ctx.Benutzers.Any(f => f.KlasseId == id && !f.Geloescht);
+                if(!benutzerVorhanden)
+                {
+                    entity.Geloescht = true;  
+                }
 
                 try
                 {

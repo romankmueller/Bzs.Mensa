@@ -1,5 +1,8 @@
-﻿using Bzs.Mensa.Shared.DataTransferObjects;
+﻿using Bzs.Mensa.Server.DataAccess.Context;
+using Bzs.Mensa.Server.DataAccess.Models;
+using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Bzs.Mensa.Server.Services
@@ -19,21 +22,84 @@ namespace Bzs.Mensa.Server.Services
         }
 
         /// <inheritdoc />
-        public Task<ResultDto> DeleteEssenAsync(Guid id)
+        public async Task<ResultDto> DeleteEssenAsync(Guid id)
         {
-            throw new NotImplementedException();
+            using (BzsMensaContext ctx = this.CreateContext())
+            {
+                Essen entity = ctx.Essens.FirstOrDefault(f => f.Id == id);
+                if (entity == null)
+                {
+                    return new ResultDto("Essen konnte nicht gefunden werden.");
+                }
+
+                if (entity.Geloescht)
+                {
+                    return new ResultDto(true);
+                }
+
+                entity.Geloescht = true;
+
+                try
+                {
+                    await ctx.SaveChangesAsync().ConfigureAwait(true);
+                    return new ResultDto(true);
+                }
+                catch (DbUpdateException e)
+                {
+                    return new ResultDto(e);
+                }
+            }
+        }
+            /// <inheritdoc />
+            public EssenEditDto GetEssenAsync(Guid id)
+        {
+            EssenEditDto essen = null;
+            using (BzsMensaContext ctx = this.CreateContext())
+            {
+                Essen entity = ctx.Essens.FirstOrDefault(f => f.Id == id && !f.Geloescht);
+                if (entity != null)
+                {
+                    essen = new EssenEditDto();
+                    essen.Id = entity.Id;
+                    essen.BenutzerId = entity.BenutzerId;
+                    essen.Datum = entity.Datum;
+                    essen.Essen = true;
+                }
+            }
+
+            return essen;
         }
 
         /// <inheritdoc />
-        public Task<EssenEditDto> EssenAsync(Guid id)
+        public async Task<ResultDto> SaveEssenAsync(EssenEditDto item)
         {
-            throw new NotImplementedException();
-        }
+            using (BzsMensaContext ctx = this.CreateContext())
+            {
+                Essen entity = ctx.Essens.FirstOrDefault(f => f.Id == item.Id);
+                {
+                    if (entity == null)
+                    {
+                        entity = new Essen();
+                        entity.Id = item.Id;
+                        entity.Geloescht = false;
+                        ctx.Essens.Add(entity);
+                    }
 
-        /// <inheritdoc />
-        public Task<ResultDto> SaveEssenAsync(EssenEditDto item)
-        {
-            throw new NotImplementedException();
+
+                    if (entity.Geloescht)
+                    {
+                        return new ResultDto(false);
+                    }
+
+                    entity.Datum = item.Datum;
+                    //essen.Essen = item.Essen;
+                    entity.BenutzerId = item.BenutzerId;
+                    ctx.SaveChanges();
+                    return new ResultDto(true);
+                }
+
+
+            }
         }
     }
 }
