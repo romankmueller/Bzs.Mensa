@@ -105,5 +105,27 @@ namespace Bzs.Mensa.Server.Services
                 }
             }
         }
+
+        public EssenUebersichtDto GetEssenUebersicht()
+        {
+            EssenUebersichtDto data = new EssenUebersichtDto();
+            DateTime heute = DateTime.Today;
+
+            using (BzsMensaContext ctx = this.CreateContext())
+            {
+                for (int i = 0; i < 14; i++)
+                {
+                    EssenWocheDto essenWocheDto = new EssenWocheDto();
+                    essenWocheDto.Datum = heute.AddDays(i);
+                    essenWocheDto.Angemeldet = ctx.Essens.Any(f => f.BenutzerId == Guid.Empty && f.Datum == essenWocheDto.Datum && !f.Geloescht);
+                    essenWocheDto.MenuBeschreibung = ctx.EssenMenus.FirstOrDefault(f => f.Datum == essenWocheDto.Datum && !f.Geloescht)?.MenuBeschreibung ?? String.Empty;
+                    essenWocheDto.FeiertagBezeichnung = ctx.Feiertags.FirstOrDefault(f => f.Datum == essenWocheDto.Datum && !f.Geloescht)?.Bezeichnung ?? String.Empty;
+
+                    data.EssenWoche.Add(essenWocheDto);
+                }
+            }
+
+            return data;
+        }
     }
 }
