@@ -8,6 +8,7 @@ namespace Bzs.Mensa.Server.DataAccess.Models
         public Benutzer()
         {
             BenutzerAllergies = new HashSet<BenutzerAllergie>();
+            EssenStandards = new HashSet<EssenStandard>();
             Essens = new HashSet<Essen>();
         }
 
@@ -21,6 +22,7 @@ namespace Bzs.Mensa.Server.DataAccess.Models
 
         public virtual Klasse Klasse { get; set; } = null!;
         public virtual ICollection<BenutzerAllergie> BenutzerAllergies { get; set; }
+        public virtual ICollection<EssenStandard> EssenStandards { get; set; }
         public virtual ICollection<Essen> Essens { get; set; }
     }
 }

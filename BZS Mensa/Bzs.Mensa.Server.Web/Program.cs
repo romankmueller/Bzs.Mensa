@@ -12,6 +12,8 @@ builder.Services.AddScoped<IBenutzerService, BenutzerService>();
 builder.Services.AddScoped<IAllergienService, AllergienService>();
 builder.Services.AddScoped<IKlasseService, KlasseService>();
 builder.Services.AddScoped<IEssenService, EssenService>();
+builder.Services.AddScoped<IFeiertagService, FeiertagService>();
+builder.Services.AddScoped<IFerienService, FerienService>();
 
 var app = builder.Build();
 

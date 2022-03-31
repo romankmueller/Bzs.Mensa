@@ -1,8 +1,9 @@
 ﻿CREATE TABLE [dbo].[Ferien]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL,
+	[Bezeichnung] NVARCHAR(50) NOT NULL,
 	[VonDatum] DATE NOT NULL,
 	[BisDatum] DATE NOT NULL,
-	[Text] NVARCHAR(100) NOT NULL,
+	[Geloescht] BIT NOT NULL,
 	CONSTRAINT [PK_Ferien] PRIMARY KEY ([Id])
 )

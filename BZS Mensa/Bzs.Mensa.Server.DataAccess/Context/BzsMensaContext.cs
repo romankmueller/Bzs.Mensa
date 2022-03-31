@@ -21,6 +21,10 @@ namespace Bzs.Mensa.Server.DataAccess.Context
         public virtual DbSet<Benutzer> Benutzers { get; set; } = null!;
         public virtual DbSet<BenutzerAllergie> BenutzerAllergies { get; set; } = null!;
         public virtual DbSet<Essen> Essens { get; set; } = null!;
+        public virtual DbSet<EssenMenu> EssenMenus { get; set; } = null!;
+        public virtual DbSet<EssenStandard> EssenStandards { get; set; } = null!;
+        public virtual DbSet<Feiertag> Feiertags { get; set; } = null!;
+        public virtual DbSet<Ferien> Feriens { get; set; } = null!;
         public virtual DbSet<Klasse> Klasses { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -92,6 +96,52 @@ namespace Bzs.Mensa.Server.DataAccess.Context
                     .HasForeignKey(d => d.BenutzerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Essen.BenutzerId_Benutzer.Id");
+            });
+
+            modelBuilder.Entity<EssenMenu>(entity =>
+            {
+                entity.ToTable("EssenMenu");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Datum).HasColumnType("date");
+            });
+
+            modelBuilder.Entity<EssenStandard>(entity =>
+            {
+                entity.ToTable("EssenStandard");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Benutzer)
+                    .WithMany(p => p.EssenStandards)
+                    .HasForeignKey(d => d.BenutzerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EssenStandard.BenutzerId_Benutzer.Id");
+            });
+
+            modelBuilder.Entity<Feiertag>(entity =>
+            {
+                entity.ToTable("Feiertag");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Bezeichnung).HasMaxLength(50);
+
+                entity.Property(e => e.Datum).HasColumnType("date");
+            });
+
+            modelBuilder.Entity<Ferien>(entity =>
+            {
+                entity.ToTable("Ferien");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Bezeichnung).HasMaxLength(50);
+
+                entity.Property(e => e.BisDatum).HasColumnType("date");
+
+                entity.Property(e => e.VonDatum).HasColumnType("date");
             });
 
             modelBuilder.Entity<Klasse>(entity =>
