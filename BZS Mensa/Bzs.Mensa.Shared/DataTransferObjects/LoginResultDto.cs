@@ -30,6 +30,6 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         /// Gets or sets the token.
         /// </summary>
         [JsonProperty(@"token")]
-        public string Token { get; set; }
+        public string? Token { get; set; }
     }
 }

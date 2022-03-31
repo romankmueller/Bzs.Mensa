@@ -13,7 +13,7 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         /// </summary>
         public AllergieEditDto()
         {
-            this.Bezeichnung = null;
+            this.Bezeichnung = string.Empty;
         }
 
         /// <summary>

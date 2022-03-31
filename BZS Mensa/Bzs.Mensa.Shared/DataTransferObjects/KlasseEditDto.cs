@@ -13,7 +13,7 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         /// </summary>
         public KlasseEditDto()
         {
-            this.Bezeichnung = null;
+            this.Bezeichnung = string.Empty;
             this.Schicht1 = false;
             this.Schicht2 = false;
         }

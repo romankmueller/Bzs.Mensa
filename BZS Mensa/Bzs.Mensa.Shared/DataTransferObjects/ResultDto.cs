@@ -57,6 +57,6 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         /// Gets or sets the error message.
         /// </summary>
         [JsonProperty(@"errorMessage")]
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
     }
 }
