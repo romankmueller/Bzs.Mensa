@@ -30,6 +30,10 @@ namespace Bzs.Mensa.Server.Services
                 Benutzer entity = ctx.Benutzers.FirstOrDefault(f => f.BenutzerName == userName && !f.Geloescht);
                 if (entity != null)
                 {
+                    if (entity.Passwort == password)
+                    {
+                        result.Succsessful = true;
+                    }
                     ////if (PasswordHelper.AreEqual(password, entity.Passwort, entity.Salt))
                     ////{
                     ////    result = new LoginResultDto();
@@ -58,6 +62,10 @@ namespace Bzs.Mensa.Server.Services
                     ////{
                     ////    user = new AuthenticationUser(entity.Id, entity.BenutzerName);
                     ////}
+                    if (entity.Passwort == password)
+                    {
+                        user = new AuthenticationUser(entity.Id, entity.BenutzerName);
+                    }
                 }
             }
 

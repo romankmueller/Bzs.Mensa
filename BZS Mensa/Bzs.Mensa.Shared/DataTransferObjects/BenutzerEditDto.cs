@@ -15,6 +15,8 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         {
             this.Benutzername = string.Empty;
             this.Email = string.Empty;
+            this.Nachname = string.Empty;
+            this.Vorname = string.Empty;
             this.KlasseId = Guid.Empty;
             this.Vegetarisch = false;
             this.AllergieItems = new List<BenutzerAllergieEditDto>();
@@ -28,11 +30,13 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         /// <param name="email">The email address.</param>
         /// <param name="klasseId">The class identifier.</param>
         /// <param name="vegetarisch">The vegetarian flag.</param>
-        public BenutzerEditDto(Guid id, string benutzerName, string email, Guid klasseId, bool vegetarisch)
+        public BenutzerEditDto(Guid id, string benutzerName, string email, string nachname, string vorname, Guid klasseId, bool vegetarisch)
             : base(id)
         {
-            this.Benutzername = benutzerName;
-            this.Email = email;
+            this.Benutzername = benutzerName ?? string.Empty;
+            this.Email = email ?? string.Empty;
+            this.Nachname = nachname ?? string.Empty;
+            this.Vorname = vorname ?? string.Empty;
             this.KlasseId = klasseId;
             this.Vegetarisch = vegetarisch;
             this.AllergieItems = new List<BenutzerAllergieEditDto>();
@@ -49,6 +53,18 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         /// </summary>
         [JsonProperty(@"email")]
         public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last name.
+        /// </summary>
+        [JsonProperty(@"nachname")]
+        public string Nachname { get; set; }
+
+        /// <summary>
+        /// Gets or sets the first name.
+        /// </summary>
+        [JsonProperty(@"vorname")]
+        public string Vorname { get; set; }
 
         /// <summary>
         /// Gets or sets the class identifier.

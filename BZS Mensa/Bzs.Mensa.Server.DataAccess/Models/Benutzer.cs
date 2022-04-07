@@ -16,8 +16,10 @@ namespace Bzs.Mensa.Server.DataAccess.Models
         public string BenutzerName { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Passwort { get; set; } = null!;
+        public string Nachname { get; set; } = null!;
+        public string Vorname { get; set; } = null!;
         public Guid KlasseId { get; set; }
-        public bool Veggetarisch { get; set; }
+        public bool Vegetarisch { get; set; }
         public bool Geloescht { get; set; }
 
         public virtual Klasse Klasse { get; set; } = null!;

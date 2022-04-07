@@ -42,6 +42,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet("test")]
         public ActionResult<string> TestMitPfad()
         {
+            this.SetResponseHeaderCacheExpiration();
             return "Test: OK";
         }
 
@@ -52,6 +53,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet()]
         public ActionResult<string> TestOhnePfad()
         {
+            this.SetResponseHeaderCacheExpiration();
             return "OK";
         }
 

@@ -63,8 +63,10 @@ namespace Bzs.Mensa.Server.Services
                     dataItem.Id = benutzerEntity.Id;
                     dataItem.Email = benutzerEntity.Email;
                     dataItem.Benutzername = benutzerEntity.BenutzerName;
+                    dataItem.Nachname = benutzerEntity.Nachname;
+                    dataItem.Vorname = benutzerEntity.Vorname;
                     dataItem.KlasseId = benutzerEntity.KlasseId;
-                    dataItem.Vegetarisch = benutzerEntity.Veggetarisch;
+                    dataItem.Vegetarisch = benutzerEntity.Vegetarisch;
                     dataItem.AllergieItems = benutzerEntity.BenutzerAllergies.Select(f => new BenutzerAllergieEditDto(f.Id, f.AllergieId, f.Allergie.Bezeichnung)).ToList();
                     data.Add(dataItem);
                 }
@@ -90,8 +92,10 @@ namespace Bzs.Mensa.Server.Services
                     data.Id = benutzer.Id;
                     data.Email = benutzer.Email;
                     data.Benutzername = benutzer.BenutzerName;
+                    data.Nachname = benutzer.Nachname;
+                    data.Vorname = benutzer.Vorname;
                     data.KlasseId = benutzer.KlasseId;
-                    data.Vegetarisch = benutzer.Veggetarisch;
+                    data.Vegetarisch = benutzer.Vegetarisch;
                     data.AllergieItems = benutzer.BenutzerAllergies.Select(f => new BenutzerAllergieEditDto(f.Id, f.AllergieId, f.Allergie.Bezeichnung)).ToList();
                 }
             }
@@ -113,8 +117,10 @@ namespace Bzs.Mensa.Server.Services
                         entity.Id = item.Id;
                         entity.BenutzerName = string.Empty;
                         entity.Email = string.Empty;
+                        entity.Nachname = string.Empty;
+                        entity.Vorname = string.Empty;
                         entity.KlasseId = Guid.Empty;
-                        entity.Veggetarisch = false;
+                        entity.Vegetarisch = false;
                         entity.Geloescht = false;
                         ctx.Benutzers.Add(entity);
                     }
@@ -126,8 +132,10 @@ namespace Bzs.Mensa.Server.Services
 
                     entity.BenutzerName = item.Benutzername;
                     entity.Email = item.Email;
+                    entity.Nachname = item.Nachname;
+                    entity.Vorname = item.Vorname;
                     entity.KlasseId = item.KlasseId;
-                    entity.Veggetarisch = item.Vegetarisch;
+                    entity.Vegetarisch = item.Vegetarisch;
 
 
                     foreach (BenutzerAllergieEditDto Ba in item.AllergieItems)
@@ -250,8 +258,10 @@ namespace Bzs.Mensa.Server.Services
                     entity.BenutzerName = "admin";
                     entity.Email = "admin@admin.ch";
                     entity.Passwort = "admin123";
+                    entity.Nachname = string.Empty;
+                    entity.Vorname = @"Administrator";
                     entity.KlasseId = Guid.Empty;
-                    entity.Veggetarisch = false;
+                    entity.Vegetarisch = false;
                     entity.Geloescht = false;
                     ctx.Benutzers.Add(entity);
                 }

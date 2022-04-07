@@ -1,6 +1,6 @@
 ﻿using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bzs.Mensa.Server.Web.Controllers
@@ -8,6 +8,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
     /// <summary>
     /// Represents a class controller.
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public sealed class KlasseController : ControllerBase
@@ -31,6 +32,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet()]
         public async Task<ActionResult<List<KlasseEditDto>>> KlassenAsync()
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.klasseService.GetKlassenAsync().ConfigureAwait(true);
         }
 
@@ -42,6 +44,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet("item/{id}")]
         public async Task<ActionResult<KlasseEditDto>> KlasseAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.klasseService.GetKlasseAsync(id).ConfigureAwait(true);
         }
 
@@ -53,6 +56,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpPost("item")]
         public async Task<ActionResult<ResultDto>> SaveKlasseAsync([FromBody] KlasseEditDto item)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.klasseService.SaveKlasseAsync(item).ConfigureAwait(true);
         }
 
@@ -64,6 +68,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpDelete("item/{id}")]
         public async Task<ActionResult<ResultDto>> DeleteKlasseAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.klasseService.DeleteKlasseAsync(id).ConfigureAwait(true);
         }
     }

@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Bzs.Mensa.Server.Database.publish.xml" />
+    <None Include="Scripts\Populate_UnitTest.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Benutzer.sql" />

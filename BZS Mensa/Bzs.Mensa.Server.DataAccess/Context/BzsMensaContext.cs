@@ -57,6 +57,10 @@ namespace Bzs.Mensa.Server.DataAccess.Context
 
                 entity.Property(e => e.Email).HasMaxLength(100);
 
+                entity.Property(e => e.Nachname).HasMaxLength(50);
+
+                entity.Property(e => e.Vorname).HasMaxLength(50);
+
                 entity.HasOne(d => d.Klasse)
                     .WithMany(p => p.Benutzers)
                     .HasForeignKey(d => d.KlasseId)

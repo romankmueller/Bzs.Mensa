@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace Bzs.Mensa.Server.Web.Controllers
 {
+    /// <summary>
+    /// Represents the home controller.
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;

@@ -30,6 +30,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet()]
         public async Task<ActionResult<List<BenutzerEditDto>>> BenutzerAsync()
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.benutzerService.GetBenutzerAsync().ConfigureAwait(true);
         }
 
@@ -41,6 +42,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet("item/{id}")]
         public async Task<ActionResult<BenutzerEditDto>> BenutzerAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.benutzerService.GetBenutzerAsync(id).ConfigureAwait(true);
         }
 
@@ -52,6 +54,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpPost("item")]
         public async Task<ActionResult<ResultDto>> SaveBenutzerAsync([FromBody] BenutzerEditDto item)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.benutzerService.SaveBenutzerAsync(item).ConfigureAwait(true);
         }
 
@@ -63,6 +66,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpDelete("item/{id}")]
         public async Task<ActionResult<ResultDto>> DeleteBenutzerAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.benutzerService.DeleteBenutzerAsync(id).ConfigureAwait(true);
         }
 
@@ -74,6 +78,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpPost("item/{id}/password")]
         public async Task<ActionResult<ResultDto>> SetPasswordAsync([FromBody] BenutzerPasswortDto item)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.benutzerService.SetBenutzerPasswortAsync(item).ConfigureAwait(true);
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Bzs.Mensa.Server.Services;
 using Bzs.Mensa.Shared.DataTransferObjects;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bzs.Mensa.Server.Web.Controllers
@@ -8,6 +8,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
     /// <summary>
     /// Represents a vacation controller.
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public sealed class FerienController : ControllerBase
@@ -31,6 +32,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet()]
         public async Task<ActionResult<List<FerienEditDto>>> FerienAsync()
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.ferienService.GetFerienAsync().ConfigureAwait(true);
         }
 
@@ -42,6 +44,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet("item/{id}")]
         public async Task<ActionResult<FerienEditDto>> FerienAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.ferienService.GetFerienAsync(id).ConfigureAwait(true);
         }
 
@@ -53,6 +56,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpPost("item")]
         public async Task<ActionResult<ResultDto>> SaveFeiertagAsync([FromBody] FerienEditDto item)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.ferienService.SaveFerienAsync(item).ConfigureAwait(true);
         }
 
@@ -64,6 +68,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpDelete("item/{id}")]
         public async Task<ActionResult<ResultDto>> DeleteFerienAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.ferienService.DeleteFerienAsync(id).ConfigureAwait(true);
         }
     }

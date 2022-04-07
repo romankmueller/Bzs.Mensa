@@ -1,0 +1,2 @@
+﻿INSERT INTO [dbo].[Klasse] ([Id], [Bezeichnung], [Schicht_1], [Schicht_2], [Geloescht]) VALUES ('B2E40A48-7D29-4E80-80B8-FCB684DD5996', 'Admin', 0, 0, 0)
+INSERT INTO [dbo].[Benutzer] ([Id], [BenutzerName], [Email], [Passwort], [Nachname], [Vorname], [KlasseId], [Vegetarisch], [Geloescht]) VALUES ('6CCB56D1-2024-4137-AA31-DB4CE54509A3', 'admin', 'roman.mueller@bzs-surselva.ch', 'Admin123', '', '', 'B2E40A48-7D29-4E80-80B8-FCB684DD5996', 0, 0)

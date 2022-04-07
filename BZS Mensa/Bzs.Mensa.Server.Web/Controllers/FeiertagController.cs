@@ -1,5 +1,6 @@
 ﻿ using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bzs.Mensa.Server.Web.Controllers
@@ -7,6 +8,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
     /// <summary>
     /// Represents a holiday controller.
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public sealed class FeiertagController : ControllerBase
@@ -30,6 +32,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet()]
         public async Task<ActionResult<List<FeiertagEditDto>>> FeiertageAsync()
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.feiertagService.GetFeiertageAsync().ConfigureAwait(true);
         }
 
@@ -41,6 +44,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet("item/{id}")]
         public async Task<ActionResult<FeiertagEditDto>> FeiertagAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.feiertagService.GetFeiertagAsync(id).ConfigureAwait(true);
         }
 
@@ -52,6 +56,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpPost("item")]
         public async Task<ActionResult<ResultDto>> SaveFeiertagAsync([FromBody] FeiertagEditDto item)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.feiertagService.SaveFeiertagAsync(item).ConfigureAwait(true);
         }
 
@@ -63,6 +68,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpDelete("item/{id}")]
         public async Task<ActionResult<ResultDto>> DeleteFeiertagAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.feiertagService.DeleteFeiertagAsync(id).ConfigureAwait(true);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bzs.Mensa.Server.Web.Controllers
@@ -7,6 +8,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
     /// <summary>
     /// Represents an allergy controller.
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public sealed class AllergienController : ControllerBase
@@ -30,6 +32,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet()]
         public async Task<ActionResult<List<AllergieEditDto>>> AllergienAsync()
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.allergienService.GetAllergienAsync().ConfigureAwait(true);
         }
 
@@ -41,6 +44,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet("item/{id}")]
         public async Task<ActionResult<AllergieEditDto>> AllergieAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.allergienService.GetAllergieAsync(id).ConfigureAwait(true);
         }
 
@@ -52,6 +56,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpPost("item")]
         public async Task<ActionResult<ResultDto>> SaveAllergieAsync([FromBody] AllergieEditDto item)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.allergienService.SaveAllergieAsync(item).ConfigureAwait(true);
         }
 
@@ -63,6 +68,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpDelete("item/{id}")]
         public async Task<ActionResult<ResultDto>> DeleteAllergieAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.allergienService.DeleteAllergieAsync(id).ConfigureAwait(true);
         }
     }

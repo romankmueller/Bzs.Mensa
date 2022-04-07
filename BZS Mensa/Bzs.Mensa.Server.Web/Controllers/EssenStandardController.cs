@@ -1,5 +1,6 @@
 ﻿using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bzs.Mensa.Server.Web.Controllers
@@ -7,6 +8,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
     /// <summary>
     /// Represents a meal default controller.
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public sealed class EssenStandardController : ControllerBase
@@ -31,6 +33,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet("item/byuser/{id}")]
         public async Task<ActionResult<EssenStandardEditDto>> EssenStandardByBenutzerAsync(Guid benutzerId)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.essenStandardService.EssenStandardByBenutzerAsync(benutzerId).ConfigureAwait(true);
         }
 
@@ -42,6 +45,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet("item/{id}")]
         public async Task<ActionResult<EssenStandardEditDto>> EssenStandardAsync(Guid id)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.essenStandardService.EssenStandardAsync(id).ConfigureAwait(true);
         }
 
@@ -53,6 +57,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpPost("item")]
         public async Task<ActionResult<ResultDto>> SaveEssenStandardAsync([FromBody] EssenStandardEditDto item)
         {
+            this.SetResponseHeaderCacheExpiration();
             return await this.essenStandardService.SaveEssenStandardAsync(item).ConfigureAwait(true);
         }
     }
