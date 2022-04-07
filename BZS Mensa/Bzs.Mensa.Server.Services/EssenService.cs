@@ -4,6 +4,7 @@ using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace Bzs.Mensa.Server.Services
 {
@@ -124,6 +125,51 @@ namespace Bzs.Mensa.Server.Services
                     data.EssenWoche.Add(essenWocheDto);
                 }
             }
+
+            return data;
+        }
+
+        public async Task<UebersichtTagReportDto> GetUebersichtTagReport(DateTime DatumVon, DateTime DatumBis)
+        {
+            UebersichtTagReportDto data = new UebersichtTagReportDto();
+
+            using (BzsMensaContext ctx = this.CreateContext())
+            {
+                List<Essen> entities = await ctx.Essens
+                    .Include(f => f.Benutzer)
+                    .ThenInclude(f => f.Klasse)
+                    .Where(f => f.Datum >= DatumVon && f.Datum <= DatumBis && !f.Geloescht).ToListAsync().ConfigureAwait(true);
+
+                for (DateTime datum = DatumVon; datum <= DatumBis; datum.AddDays(1))
+                {
+                    UebersichtTagReportItemDto itemNormal = new UebersichtTagReportItemDto();
+                    itemNormal.Bezeichnung = "Normal";
+                    itemNormal.Schicht1 = entities.Where(f => f.Datum == datum && !f.Benutzer.Vegetarisch && f.Benutzer.Klasse.Schicht1).Count();
+                    itemNormal.Schicht2 = entities.Where(f => f.Datum == datum && !f.Benutzer.Vegetarisch && f.Benutzer.Klasse.Schicht2).Count();
+                    itemNormal.SortierungsNummer = 1;
+                    itemNormal.Datum = datum;
+                    data.Items.Add(itemNormal);
+
+                    UebersichtTagReportItemDto itemVegi = new UebersichtTagReportItemDto();
+                    itemVegi.Bezeichnung = "Vegetarisch";
+                    itemVegi.Schicht1 = entities.Where(f => f.Datum == datum && f.Benutzer.Vegetarisch && f.Benutzer.Klasse.Schicht1).Count();
+                    itemVegi.Schicht1 = entities.Where(f => f.Datum == datum && f.Benutzer.Vegetarisch && f.Benutzer.Klasse.Schicht2).Count();
+                    itemVegi.SortierungsNummer = 2;
+                    itemVegi.Datum = datum;
+                    data.Items.Add(itemVegi);
+
+                    UebersichtTagReportItemDto itemTotal = new UebersichtTagReportItemDto();
+                    itemTotal.Bezeichnung = "Total";
+                    itemTotal.Schicht1 = entities.Where(f => f.Datum == datum && f.Benutzer.Klasse.Schicht1).Count();
+                    itemTotal.Schicht1 = entities.Where(f => f.Datum == datum && f.Benutzer.Klasse.Schicht2).Count();
+                    itemTotal.SortierungsNummer = 5;
+                    itemTotal.Datum = datum;
+                    data.Items.Add(itemTotal);
+                }
+
+            }
+
+
 
             return data;
         }
