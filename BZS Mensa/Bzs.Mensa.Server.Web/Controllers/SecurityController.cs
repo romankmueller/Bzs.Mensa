@@ -14,7 +14,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
     /// <summary>
     /// Represents a security controller.
     /// </summary>
-    [Route("api/security")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SecurityController : ControllerBase
     {
@@ -61,7 +61,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         /// Login to the application.
         /// </summary>
         /// <returns>The result.</returns>
-        [HttpPost("login")]
+        [HttpGet("login")]
         public async Task<ActionResult<LoginResultDto>> LoginAsync()
         {
             this.SetResponseHeaderCacheExpiration();

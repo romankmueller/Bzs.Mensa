@@ -8,7 +8,6 @@ namespace Bzs.Mensa.Server.Web.Controllers
     /// <summary>
     /// Represents a meal controller.
     /// </summary>
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EssenController : ControllerBase

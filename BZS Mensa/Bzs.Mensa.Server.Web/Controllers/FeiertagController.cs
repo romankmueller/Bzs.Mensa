@@ -8,7 +8,6 @@ namespace Bzs.Mensa.Server.Web.Controllers
     /// <summary>
     /// Represents a holiday controller.
     /// </summary>
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public sealed class FeiertagController : ControllerBase

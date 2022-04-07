@@ -1,5 +1,8 @@
 using Bzs.Mensa.Server.Services;
 using Bzs.Mensa.Shared.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,19 @@ builder.Services.AddScoped<IFerienService, FerienService>();
 builder.Services.AddScoped<IEssenMenuService, EssenMenuService>();
 builder.Services.AddScoped<IEssenStandardService, EssenStandardService>();
 
+// Security
+byte[] key = Encoding.ASCII.GetBytes("BzsMensaTokenKey");
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+    };
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +48,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
