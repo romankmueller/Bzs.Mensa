@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bzs.Mensa.App.Views.Register">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Entry Placeholder="Vorname" Grid.Row="1" Grid.Column="1"/>
+            <Entry Placeholder="Nachname" Grid.Row="2" Grid.Column="1"/>
+            <Entry Placeholder="Email" Grid.Row="3" Grid.Column="1"/>
+            <Entry IsPassword="True" Placeholder="Passwort" Grid.Row="4" Grid.Column="1"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Entry Grid.Column="0"></Entry>
+                <Button Text="&#709;" Grid.Column="1"></Button>
+            </Grid>
+            <Button Text="Registrieren" Grid.Row="6" Grid.Column="1"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
