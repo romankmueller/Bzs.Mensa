@@ -10,16 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace Bzs.Mensa.App.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BenutzerEinstellungen : ContentPage
+    public partial class Essen : ContentPage
     {
-        public BenutzerEinstellungen()
+        public Essen()
         {
             InitializeComponent();
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            this.Navigation.PushAsync(new NeuesPw());
         }
     }
 }

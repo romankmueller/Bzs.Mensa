@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bzs.Mensa.App.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,22 @@ namespace Bzs.Mensa.App
         public MainPage()
         {
             InitializeComponent();
+            this.Navigation.PushAsync(new Login());
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            this.Navigation.PushAsync(new BenutzerEinstellungen());
+        }
+
+        private void Button_Clicked_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button_Clicked_2(object sender, EventArgs e)
+        {
+            this.Navigation.PushAsync(new Essen());
         }
     }
 }

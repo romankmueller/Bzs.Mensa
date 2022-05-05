@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Bzs.Mensa.App.Views.BenutzerEinstellungen">
+             x:Class="Bzs.Mensa.App.Views.BenutzerEinstellungen"
+             Title="Benutzereinstellungen">
     <ContentPage.Content>
         <StackLayout>
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -22,23 +24,24 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Text="Montag" Grid.Row="1" Grid.Column="1"/>
+                <Label Text="Montag" Grid.Row="1" Grid.Column="1" VerticalOptions="Center"/>
                 <CheckBox IsChecked="false" Grid.Row="1" Grid.Column="2"></CheckBox>
-                <Label Text="Dienstag" Grid.Row="2" Grid.Column="1"/>
+                <Label Text="Dienstag" Grid.Row="2" Grid.Column="1" VerticalOptions="Center"/>
                 <CheckBox IsChecked="false" Grid.Row="2" Grid.Column="2"></CheckBox>
-                <Label Text="Mittwoch" Grid.Row="3" Grid.Column="1"/>
+                <Label Text="Mittwoch" Grid.Row="3" Grid.Column="1" VerticalOptions="Center"/>
                 <CheckBox IsChecked="false" Grid.Row="3" Grid.Column="2"></CheckBox>
-                <Label Text="Donnerstag" Grid.Row="4" Grid.Column="1"/>
+                <Label Text="Donnerstag" Grid.Row="4" Grid.Column="1" VerticalOptions="Center"/>
                 <CheckBox IsChecked="false" Grid.Row="4" Grid.Column="2"></CheckBox>
-                <Label Text="Freitag" Grid.Row="5" Grid.Column="1"/>
+                <Label Text="Freitag" Grid.Row="5" Grid.Column="1" VerticalOptions="Center"/>
                 <CheckBox IsChecked="false" Grid.Row="5" Grid.Column="2"></CheckBox>
-                <Label Text="Vegetarisch" Grid.Row="6" Grid.Column="1"/>
+                <Label Text="Vegetarisch" Grid.Row="6" Grid.Column="1" VerticalOptions="Center"/>
                 <CheckBox IsChecked="false" Grid.Row="6" Grid.Column="2"></CheckBox>
-                <Label Text="Glutenfrei" Grid.Row="7" Grid.Column="1"/>
+                <Label Text="Glutenfrei" Grid.Row="7" Grid.Column="1" VerticalOptions="Center"/>
                 <CheckBox IsChecked="false" Grid.Row="7" Grid.Column="2"></CheckBox>
-                <Label Text="Laktosenfrei" Grid.Row="8" Grid.Column="1"/>
+                <Label Text="Laktosenfrei" Grid.Row="8" Grid.Column="1" VerticalOptions="Center"/>
                 <CheckBox IsChecked="false" Grid.Row="8" Grid.Column="2"></CheckBox>
                 <Button Text="Speichern"/>
+                <Button Text="Passwort ändern" Grid.Row="9" Grid.Column="1" Clicked="Button_Clicked"></Button>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

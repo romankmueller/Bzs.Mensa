@@ -16,5 +16,10 @@ namespace Bzs.Mensa.App.Views
         {
             InitializeComponent();
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            this.Navigation.PushAsync(new NeuesPw());
+        }
     }
 }
