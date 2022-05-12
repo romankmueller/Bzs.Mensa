@@ -1,30 +1,27 @@
-﻿using Bzs.Mensa.App.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Bzs.Mensa.App.ViewModels;
+using Bzs.Mensa.App.Views;
 using Xamarin.Forms;
 
 namespace Bzs.Mensa.App
 {
+    /// <summary>
+    /// Represents the interaction logic of the main page.
+    /// </summary>
     public partial class MainPage : ContentPage
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainPage" /> class.
+        /// </summary>
         public MainPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
+            // Add the view model to the view.
+            this.BindingContext = new MainViewModel(this.Navigation);
+            
+            // TODO: Remove resp. change
             this.Navigation.PushAsync(new Login());
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            this.Navigation.PushAsync(new BenutzerEinstellungen());
-        }
-
-        private void Button_Clicked_1(object sender, EventArgs e)
-        {
-
         }
 
         private void Button_Clicked_2(object sender, EventArgs e)

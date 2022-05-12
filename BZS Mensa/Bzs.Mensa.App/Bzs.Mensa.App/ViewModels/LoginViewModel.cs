@@ -8,6 +8,9 @@ using Xamarin.Forms;
 
 namespace Bzs.Mensa.App.ViewModels
 {
+    /// <summary>
+    /// Represents a login view model.
+    /// </summary>
     public sealed class LoginViewModel : ObservableObject
     {
         private INavigation navigation;
@@ -19,10 +22,17 @@ namespace Bzs.Mensa.App.ViewModels
         private RelayCommand registrierenCommand;
         private RelayCommand passwortVergessenCommand;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginViewModel" /> class.
+        /// </summary>
         public LoginViewModel()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginViewModel" /> class.
+        /// </summary>
+        /// <param name="navigation">The navigation.</param>
         public LoginViewModel(INavigation navigation)
         {
             this.navigation = navigation;
@@ -145,11 +155,18 @@ namespace Bzs.Mensa.App.ViewModels
         {
         }
 
+        /// <summary>
+        /// Returns a value indicating whether the login command can execute.
+        /// </summary>
+        /// <returns>The command can execute.</returns>
         private bool CanExecuteAnmeldenCommand()
         {
             return !this.InProgress && !string.IsNullOrEmpty(this.Email);
         }
 
+        /// <summary>
+        /// Executes the login command.
+        /// </summary>
         private async void ExecuteAnmeldenCommand()
         {
             if (this.CanExecuteAnmeldenCommand())
@@ -158,11 +175,18 @@ namespace Bzs.Mensa.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Returns a value indicating whether the register command can execute.
+        /// </summary>
+        /// <returns>The command can execute.</returns>
         private bool CanExecuteRegistrierenCommand()
         {
             return !this.InProgress;
         }
 
+        /// <summary>
+        /// Executes the register command.
+        /// </summary>
         private async void ExecuteRegistrierenCommand()
         {
             if (this.CanExecuteRegistrierenCommand())
@@ -171,11 +195,18 @@ namespace Bzs.Mensa.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Returns a value indicating whether the password forgot command can execute.
+        /// </summary>
+        /// <returns>The command can execute.</returns>
         private bool CanExecutePasswortVergessenCommand()
         {
             return !this.InProgress;
         }
 
+        /// <summary>
+        /// Executes the password forgot command.
+        /// </summary>
         private async void ExecutePasswortVergessenCommand()
         {
             if (this.CanExecutePasswortVergessenCommand())
@@ -184,12 +215,15 @@ namespace Bzs.Mensa.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Login.
+        /// </summary>
+        /// <returns>The task.</returns>
         private async Task AnmeldenAsync()
         {
             this.InProgress = true;
             try
             {
-
                 await this.navigation.PopAsync().ConfigureAwait(true);
             }
             catch (Exception e)
