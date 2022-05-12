@@ -26,13 +26,19 @@ namespace Bzs.Mensa.App.Services
         /// <inheritdoc />
         public Task<EssenMenuEditDto> EssenMenuAsync(EssenMenuRequestDto requestItem)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                return new EssenMenuEditDto(Guid.NewGuid(), requestItem.Datum, "Schnitzel Pommes");
+            });
         }
 
         /// <inheritdoc />
         public Task<EssenMenuEditDto> EssenMenuAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                return new EssenMenuEditDto(id, DateTime.Today, "Schnitzel Pommes");
+            });
         }
 
         /// <inheritdoc />
