@@ -13,11 +13,11 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Entry Placeholder="Email" Grid.Row="1"/>
-                <Entry Placeholder="Token" Grid.Row="2"/>
-                <Entry Placeholder="Neues Passwort" Grid.Row="3" IsPassword="True"/>
-                <Entry Placeholder="Passwort bestätigen" Grid.Row="4" IsPassword="True"/>
-                <Button Text="Senden"/>
+                <Entry Placeholder="Email" Text="{Binding Email, Mode=TwoWay}" Grid.Row="1"/>
+                <Entry Placeholder="Token" Text="{Binding Token, Mode=TwoWay}" Grid.Row="2"/>
+                <Entry Placeholder="Neues Passwort" Text="{Binding Passwort1, Mode=TwoWay}" Grid.Row="3" IsPassword="True"/>
+                <Entry Placeholder="Passwort bestätigen" Text="{Binding Passwort2, Mode=TwoWay}" Grid.Row="4" IsPassword="True"/>
+                <Button Command="{Binding PasswortAendern}" Text="Senden"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

@@ -36,7 +36,7 @@ namespace Bzs.Mensa.App.ViewModels
         {
             get
             {
-                return this.benutzerEinstellungenCommand ?? (this.benutzerEinstellungenCommand = new RelayCommand(this.ExecuteBenutzerEinstellungenCommand));
+                return this.benutzerEinstellungenCommand ?? (this.benutzerEinstellungenCommand = new RelayCommand(this.ExecuteBenutzerEinstellungenCommand, this.CanExecuteBenutzerEinstellungenCommand));
             }
         }
 

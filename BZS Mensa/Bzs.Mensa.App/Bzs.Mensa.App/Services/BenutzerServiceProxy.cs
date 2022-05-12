@@ -60,5 +60,15 @@ namespace Bzs.Mensa.App.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<ResultDto> SetChangeBenutzerPasswort(BenutzerNeuesPasswortDto item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ResultDto> SendTokenEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -12,8 +12,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Entry Placeholder="Email" Grid.Row="1"/>
-                <Button Text="Senden" Clicked="Button_Clicked"/>
+                <Entry Text="{Binding Email, Mode=TwoWay}" Placeholder="Email" Grid.Row="1"/>
+                <Button Command="{Binding Senden, Mode=TwoWay}" Text="Senden" Clicked="Button_Clicked"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>
