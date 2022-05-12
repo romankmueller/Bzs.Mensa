@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bzs.Mensa.Server.DataAccess\Bzs.Mensa.Server.DataAccess.csproj" />
-    <ProjectReference Include="..\Bzs.Mensa.Shared\Bzs.Mensa.Shared.csproj" />
+    <ProjectReference Include="..\Bzs.Mensa.SharedStd\Bzs.Mensa.SharedStd.csproj" />
   </ItemGroup>
 
 </Project>

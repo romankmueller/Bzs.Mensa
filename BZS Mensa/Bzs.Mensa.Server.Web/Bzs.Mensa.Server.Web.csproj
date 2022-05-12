@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bzs.Mensa.Server.Services\Bzs.Mensa.Server.Services.csproj" />
-    <ProjectReference Include="..\Bzs.Mensa.Shared\Bzs.Mensa.Shared.csproj" />
   </ItemGroup>
 
 </Project>

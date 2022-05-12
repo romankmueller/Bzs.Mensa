@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Bzs.Mensa.App.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Bzs.Mensa.App.Views
 {
+    /// <summary>
+    /// Represents the interaction logic of the login.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Login : ContentPage
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Login" /> class.
+        /// </summary>
         public Login()
         {
-            InitializeComponent();
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            this.Navigation.PushAsync(new Register());
-        }
-
-        private void Button_Clicked_1(object sender, EventArgs e)
-        {
-            this.Navigation.PushAsync(new PwVergessen());
+            this.InitializeComponent();
+            this.BindingContext = new LoginViewModel(this.Navigation);
         }
     }
 }
