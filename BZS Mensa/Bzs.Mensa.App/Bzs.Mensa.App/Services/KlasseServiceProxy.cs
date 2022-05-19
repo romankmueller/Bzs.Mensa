@@ -19,15 +19,17 @@ namespace Bzs.Mensa.App.Services
         }
 
         /// <inheritdoc />
-        public Task<ResultDto> DeleteKlasseAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc />
         public Task<KlasseEditDto> GetKlasseAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                KlasseEditDto data = new KlasseEditDto();
+                data.Id = id;
+                data.Bezeichnung = @"Klasse";
+                data.Schicht1 = false;
+                data.Schicht2 = true;
+                return data;
+            });
         }
 
         /// <inheritdoc />
@@ -45,7 +47,19 @@ namespace Bzs.Mensa.App.Services
         /// <inheritdoc />
         public Task<ResultDto> SaveKlasseAsync(KlasseEditDto item)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                return new ResultDto(true);
+            });
+        }
+
+        /// <inheritdoc />
+        public Task<ResultDto> DeleteKlasseAsync(Guid id)
+        {
+            return Task.Run(() =>
+            {
+                return new ResultDto(true);
+            });
         }
     }
 }

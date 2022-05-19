@@ -27,7 +27,13 @@ namespace Bzs.Mensa.App.Services
         /// <inheritdoc />
         public Task<AllergieEditDto> GetAllergieAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                AllergieEditDto data = new AllergieEditDto();
+                data.Id = id;
+                data.Bezeichnung = @"Allergie";
+                return data;
+            });
         }
 
         /// <inheritdoc />
@@ -45,7 +51,10 @@ namespace Bzs.Mensa.App.Services
         /// <inheritdoc />
         public Task<ResultDto> SaveAllergieAsync(AllergieEditDto item)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                return new ResultDto(true);
+            });
         }
     }
 }
