@@ -59,6 +59,7 @@ namespace Bzs.Mensa.App.ViewModels
             get
             {
                 return this.datum;
+                
             }
 
             set
@@ -67,6 +68,14 @@ namespace Bzs.Mensa.App.ViewModels
                 {
                     this.OnChangedDatum();
                 }
+            }
+        }
+
+        public string DatumString
+        {
+            get
+            {
+                return this.Datum.ToString("dd MMM yyyy");
             }
         }
 

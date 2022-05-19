@@ -5,8 +5,8 @@
              Title="Menü">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Datum, Mode=OneWay}" />
-            <Label Text="{Binding MenuText, Mode=OneWay}" />
+            <Label Text="{Binding DatumString, Mode=OneWay}" Margin="5" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding MenuText, Mode=OneWay}" Margin="5"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

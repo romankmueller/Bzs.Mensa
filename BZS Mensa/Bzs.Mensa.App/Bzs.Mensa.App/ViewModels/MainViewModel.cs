@@ -1,6 +1,8 @@
 ﻿using Bzs.Mensa.App.Views;
+using Bzs.Mensa.Shared.DataTransferObjects;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace Bzs.Mensa.App.ViewModels
@@ -11,6 +13,7 @@ namespace Bzs.Mensa.App.ViewModels
     public sealed class MainViewModel : ObservableObject
     {
         private INavigation navigation;
+        private ObservableCollection<EssenEditDto> items;
         private RelayCommand benutzerEinstellungenCommand;
 
         /// <summary>
@@ -18,6 +21,18 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         public MainViewModel()
         {
+            this.items = new ObservableCollection<EssenEditDto>();
+            EssenEditDto essen1 = new EssenEditDto();
+            essen1.Id = new System.Guid();
+            essen1.Essen = true;
+            essen1.Datum = System.DateTime.Today;
+            items.Add(essen1);
+
+            EssenEditDto essen2 = new EssenEditDto();
+            essen2.Id = new System.Guid();
+            essen2.Essen = true;
+            essen2.Datum = System.DateTime.Today.AddDays(1);
+            items.Add(essen2);
         }
 
         /// <summary>
@@ -25,6 +40,7 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         /// <param name="navigation">The navigation.</param>
         public MainViewModel(INavigation navigation)
+            :this()
         {
             this.navigation = navigation;
         }
@@ -57,6 +73,14 @@ namespace Bzs.Mensa.App.ViewModels
             if (this.CanExecuteBenutzerEinstellungenCommand())
             {
                 await this.navigation.PushAsync(new BenutzerEinstellungen()).ConfigureAwait(true);
+            }
+        }
+
+        public ObservableCollection<EssenEditDto> Items
+        {
+            get
+            {
+                return this.items;
             }
         }
     }

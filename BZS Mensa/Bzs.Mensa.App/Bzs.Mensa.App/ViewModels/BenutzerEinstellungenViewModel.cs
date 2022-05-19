@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Bzs.Mensa.App.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using Xamarin.Forms;
 
 namespace Bzs.Mensa.App.ViewModels
@@ -11,6 +13,7 @@ namespace Bzs.Mensa.App.ViewModels
     {
         private INavigation navigation;
         private RelayCommand passwortAendernCommand;
+        private RelayCommand speichernCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BenutzerEinstellungenViewModel" /> class.
@@ -40,6 +43,24 @@ namespace Bzs.Mensa.App.ViewModels
             }
         }
 
+        public RelayCommand SpeichernCommand
+        {
+            get
+            {
+                return this.speichernCommand ?? (this.speichernCommand = new RelayCommand(this.ExecuteSpeichernCommand, this.CanExecuteSpeichernCommand));
+            }
+        }
+
+        private bool CanExecuteSpeichernCommand()
+        {
+            return true;
+        }
+
+        private async void ExecuteSpeichernCommand()
+        {
+            await App.Current.MainPage.DisplayAlert("Gespeichert", "Ihr Benutzer wurde gespeichert.", "Ok").ConfigureAwait(true);
+        }
+
         /// <summary>
         /// Returns a value indicating whether the password change command can execute.
         /// </summary>
@@ -54,7 +75,7 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         private void ExecutePasswortAendernCommand()
         {
-
+            this.navigation.PushAsync(new NeuesPw());
         }
     }
 }

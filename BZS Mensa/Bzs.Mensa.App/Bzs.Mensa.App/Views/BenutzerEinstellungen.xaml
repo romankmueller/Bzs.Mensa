@@ -3,9 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Bzs.Mensa.App.Views.BenutzerEinstellungen"
              Title="Benutzereinstellungen">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Speichern" 
+                     Command="{Binding SpeichernCommand}"
+                     Order ="Primary"
+                     Priority="0"/>
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout>
-            <Grid>
+            <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -24,24 +31,26 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Text="Montag" Grid.Row="1" Grid.Column="1" VerticalOptions="Center"/>
-                <CheckBox IsChecked="false" Grid.Row="1" Grid.Column="2"></CheckBox>
-                <Label Text="Dienstag" Grid.Row="2" Grid.Column="1" VerticalOptions="Center"/>
-                <CheckBox IsChecked="false" Grid.Row="2" Grid.Column="2"></CheckBox>
-                <Label Text="Mittwoch" Grid.Row="3" Grid.Column="1" VerticalOptions="Center"/>
-                <CheckBox IsChecked="false" Grid.Row="3" Grid.Column="2"></CheckBox>
-                <Label Text="Donnerstag" Grid.Row="4" Grid.Column="1" VerticalOptions="Center"/>
-                <CheckBox IsChecked="false" Grid.Row="4" Grid.Column="2"></CheckBox>
-                <Label Text="Freitag" Grid.Row="5" Grid.Column="1" VerticalOptions="Center"/>
-                <CheckBox IsChecked="false" Grid.Row="5" Grid.Column="2"></CheckBox>
-                <Label Text="Vegetarisch" Grid.Row="6" Grid.Column="1" VerticalOptions="Center"/>
-                <CheckBox IsChecked="false" Grid.Row="6" Grid.Column="2"></CheckBox>
-                <Label Text="Glutenfrei" Grid.Row="7" Grid.Column="1" VerticalOptions="Center"/>
-                <CheckBox IsChecked="false" Grid.Row="7" Grid.Column="2"></CheckBox>
-                <Label Text="Laktosenfrei" Grid.Row="8" Grid.Column="1" VerticalOptions="Center"/>
-                <CheckBox IsChecked="false" Grid.Row="8" Grid.Column="2"></CheckBox>
-                <Button Text="Speichern"/>
-                <Button Text="Passwort ändern" Command="{Binding PasswortAendernCommand, Mode=OneWay}" Grid.Row="9" Grid.Column="1" />
+                <Label Text="Tage" Grid.Row="0" Grid.Column="0" FontAttributes="Bold" FontSize="Large"></Label>
+                <Label Text="Montag" Grid.Row="1" Grid.Column="0" VerticalOptions="Center"/>
+                <CheckBox IsChecked="false" Grid.Row="1" Grid.Column="1"></CheckBox>
+                <Label Text="Dienstag" Grid.Row="2" Grid.Column="0" VerticalOptions="Center"/>
+                <CheckBox IsChecked="false" Grid.Row="2" Grid.Column="1"></CheckBox>
+                <Label Text="Mittwoch" Grid.Row="3" Grid.Column="0" VerticalOptions="Center"/>
+                <CheckBox IsChecked="false" Grid.Row="3" Grid.Column="1"></CheckBox>
+                <Label Text="Donnerstag" Grid.Row="4" Grid.Column="0" VerticalOptions="Center"/>
+                <CheckBox IsChecked="false" Grid.Row="4" Grid.Column="1"></CheckBox>
+                <Label Text="Freitag" Grid.Row="5" Grid.Column="0" VerticalOptions="Center"/>
+                <CheckBox IsChecked="false" Grid.Row="5" Grid.Column="1"></CheckBox>
+                <Label Text="Allergien" Grid.Row="6" Grid.Column="0" FontAttributes="Bold" FontSize="Large"></Label>
+                <Label Text="Vegetarisch" Grid.Row="7" Grid.Column="0" VerticalOptions="Center"/>
+                <CheckBox IsChecked="false" Grid.Row="7" Grid.Column="1"></CheckBox>
+                <Label Text="Glutenfrei" Grid.Row="8" Grid.Column="0" VerticalOptions="Center"/>
+                <CheckBox IsChecked="false" Grid.Row="8" Grid.Column="1"></CheckBox>
+                <Label Text="Laktosenfrei" Grid.Row="9" Grid.Column="0" VerticalOptions="Center"/>
+                <CheckBox IsChecked="false" Grid.Row="9" Grid.Column="1"></CheckBox>
+             
+                <Button Text="Passwort ändern" Command="{Binding PasswortAendernCommand, Mode=OneWay}" Grid.Row="10" Grid.Column="0" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>
