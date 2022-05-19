@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Bzs.Mensa.App.Services;
 using Bzs.Mensa.App.Views;
+using Bzs.Mensa.Shared.DataTransferObjects;
+using Bzs.Mensa.Shared.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Xamarin.Forms;
@@ -13,6 +16,7 @@ namespace Bzs.Mensa.App.ViewModels
     /// </summary>
     public sealed class LoginViewModel : ObservableObject
     {
+        private readonly ISecurityService securityService;
         private INavigation navigation;
         private bool inProgress;
         private string email;
@@ -27,6 +31,7 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         public LoginViewModel()
         {
+            this.securityService = new SecurityServiceProxy();
         }
 
         /// <summary>
@@ -34,6 +39,7 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         /// <param name="navigation">The navigation.</param>
         public LoginViewModel(INavigation navigation)
+            : this()
         {
             this.navigation = navigation;
         }
@@ -146,6 +152,7 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         private void OnChangedEmail()
         {
+            this.AnmeldenCommand.NotifyCanExecuteChanged();
         }
 
         /// <summary>
@@ -153,6 +160,7 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         private void OnChangedPassword()
         {
+            this.AnmeldenCommand.NotifyCanExecuteChanged();
         }
 
         /// <summary>
@@ -224,11 +232,20 @@ namespace Bzs.Mensa.App.ViewModels
             this.InProgress = true;
             try
             {
-                await this.navigation.PopAsync().ConfigureAwait(true);
+                LoginResultDto resultat = await this.securityService.LoginAsync(this.Email, this.Passwort).ConfigureAwait(true);
+                if (resultat != null && resultat.Succsessful)
+                {
+                    await this.navigation.PopAsync().ConfigureAwait(true);
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Fehler", "Fehler beim Anmelden.", "Ok").ConfigureAwait(true);
+                }
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
+                await App.Current.MainPage.DisplayAlert("Fehler", "Fehler beim Anmelden.", "Ok").ConfigureAwait(true);
             }
             finally
             {

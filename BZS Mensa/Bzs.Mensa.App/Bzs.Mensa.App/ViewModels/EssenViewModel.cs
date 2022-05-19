@@ -32,11 +32,11 @@ namespace Bzs.Mensa.App.ViewModels
         /// Initializes a new instance of the <see cref="EssenViewModel" /> class.
         /// </summary>
         /// <param name="navigation">The navigation.</param>
-        public EssenViewModel(INavigation navigation, DateTime datum)
+        public EssenViewModel(INavigation navigation)
             : this()
         {
             this.navigation = navigation;
-            this.datum = datum.Date;
+            this.datum = DateTime.Today;
             this.RefreshEssenAsync().ConfigureAwait(true);
         }
 
@@ -48,6 +48,25 @@ namespace Bzs.Mensa.App.ViewModels
             get
             {
                 return this.backCommand ?? (this.backCommand = new RelayCommand(this.ExecuteBackCommand));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date.
+        /// </summary>
+        public DateTime Datum
+        {
+            get
+            {
+                return this.datum;
+            }
+
+            set
+            {
+                if (this.SetProperty(ref this.datum, value))
+                {
+                    this.OnChangedDatum();
+                }
             }
         }
 
@@ -68,6 +87,14 @@ namespace Bzs.Mensa.App.ViewModels
         }
 
         /// <summary>
+        /// Called when the date changed.
+        /// </summary>
+        private void OnChangedDatum()
+        {
+            this.RefreshEssenAsync().ConfigureAwait(true);
+        }
+
+        /// <summary>
         /// Executes the back command.
         /// </summary>
         private async void ExecuteBackCommand()
@@ -81,7 +108,7 @@ namespace Bzs.Mensa.App.ViewModels
         /// <returns>The task.</returns>
         private async Task RefreshEssenAsync()
         {
-            EssenMenuRequestDto request = new EssenMenuRequestDto(this.datum);
+            EssenMenuRequestDto request = new EssenMenuRequestDto(this.Datum);
             EssenMenuEditDto data = await this.essenMenuService.EssenMenuAsync(request).ConfigureAwait(true);
             Application.Current.Dispatcher?.BeginInvokeOnMainThread(() =>
             {

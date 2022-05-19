@@ -4,7 +4,7 @@
              x:Class="Bzs.Mensa.App.Views.KlassenAuswahl">
     <ContentPage.Content>
         <StackLayout>
-            <ListView>
+            <ListView ItemsSource="{Binding KlasseItems, Mode=OneWay}" SelectedItem="{Binding SelectedKlasse, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -12,7 +12,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Text="" Grid.Column="0"></Label>
+                            <Label Grid.Column="0" Text="{Binding Bezeichnung, Mode=OneWay}" />
                             <CheckBox IsChecked="False" Grid.Column="1"/>
                         </Grid>
                     </DataTemplate>

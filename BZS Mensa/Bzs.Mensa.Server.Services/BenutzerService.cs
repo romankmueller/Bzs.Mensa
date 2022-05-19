@@ -283,5 +283,14 @@ namespace Bzs.Mensa.Server.Services
                 }
             }
         }
+
+        /// <inheritdoc />
+        public Task<ResultDto> SendTokenEmail(BenutzerPasswortVergessenDto item)
+        {
+            return Task.Run(() =>
+            {
+                return new ResultDto(false);
+            });
+        }
     }
 }

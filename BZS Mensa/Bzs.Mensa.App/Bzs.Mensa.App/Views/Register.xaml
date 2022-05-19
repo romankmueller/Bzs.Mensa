@@ -15,24 +15,20 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
             </Grid>
-            <Entry Placeholder="Vorname" Grid.Row="1" Grid.Column="1"/>
-            <Entry Placeholder="Nachname" Grid.Row="2" Grid.Column="1"/>
-            <Entry Placeholder="Email" Grid.Row="3" Grid.Column="1"/>
-            <Entry IsPassword="True" Placeholder="Passwort" Grid.Row="4" Grid.Column="1"/>
-            <Grid>
+            <Entry Grid.Row="0" Placeholder="Vorname" Text="{Binding Vorname, Mode=TwoWay}" />
+            <Entry Grid.Row="1" Placeholder="Nachname" Text="{Binding Nachname, Mode=TwoWay}" />
+            <Entry Grid.Row="2" Placeholder="Email" Text="{Binding Email, Mode=TwoWay}" />
+            <Entry Grid.Row="3" Placeholder="Passwort" Text="{Binding Passwort, Mode=TwoWay}" IsPassword="True" />
+            <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition />
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Entry Grid.Column="0"></Entry>
                 <Button Text="&#709;" Grid.Column="1"></Button>
             </Grid>
-            <Button Text="Registrieren" Grid.Row="6" Grid.Column="1"/>
+            <Button Grid.Row="5" Grid.Column="1" Text="Registrieren" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

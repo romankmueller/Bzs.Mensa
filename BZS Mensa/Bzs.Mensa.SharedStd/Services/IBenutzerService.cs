@@ -57,5 +57,12 @@ namespace Bzs.Mensa.Shared.Services
         /// </summary>
         /// <returns>The task.</returns>
         Task CreateAdministratorAsync();
+
+        /// <summary>
+        /// Sends a token email.
+        /// </summary>
+        /// <param name="item">The item to send.</param>
+        /// <returns>The result.</returns>
+        Task<ResultDto> SendTokenEmail(BenutzerPasswortVergessenDto item);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Bzs.Mensa.Shared.DataTransferObjects;
@@ -22,19 +23,31 @@ namespace Bzs.Mensa.App.Services
         /// <inheritdoc />
         public Task<ResultDto> AnmeldenAsync(BenutzerAnmeldungDto daten)
         {
-            throw new NotImplementedException();
+            // TODO: Ersetzen mit Webservice-Aufruf.
+            return Task.Run(() =>
+            {
+                return new ResultDto(true);
+            });
         }
 
         /// <inheritdoc />
         public Task CreateAdministratorAsync()
         {
-            throw new NotImplementedException();
+            // TODO: Ersetzen mit Webservice-Aufruf.
+            return Task.Run(() =>
+            {
+                Debug.WriteLine(@"CreateAdministratorAsync");
+            });
         }
 
         /// <inheritdoc />
         public Task<ResultDto> DeleteBenutzerAsync(Guid id)
         {
-            throw new NotImplementedException();
+            // TODO: Ersetzen mit Webservice-Aufruf.
+            return Task.Run(() =>
+            {
+                return new ResultDto(true);
+            });
         }
 
         /// <inheritdoc />
@@ -52,23 +65,38 @@ namespace Bzs.Mensa.App.Services
         /// <inheritdoc />
         public Task<ResultDto> SaveBenutzerAsync(BenutzerEditDto item)
         {
-            throw new NotImplementedException();
+            // TODO: Ersetzen mit Webservice-Aufruf.
+            return Task.Run(() =>
+            {
+                return new ResultDto(true);
+            });
         }
 
         /// <inheritdoc />
         public Task<ResultDto> SetBenutzerPasswortAsync(BenutzerPasswortDto item)
         {
-            throw new NotImplementedException();
+            // TODO: Ersetzen mit Webservice-Aufruf.
+            return Task.Run(() =>
+            {
+                return new ResultDto(true);
+            });
         }
 
+        /// <inheritdoc />
         public Task<ResultDto> SetChangeBenutzerPasswort(BenutzerNeuesPasswortDto item)
         {
+            // TODO: Ersetzen mit Webservice-Aufruf.
             throw new NotImplementedException();
         }
 
-        public Task<ResultDto> SendTokenEmail(string email)
+        /// <inheritdoc />
+        public Task<ResultDto> SendTokenEmail(BenutzerPasswortVergessenDto item)
         {
-            throw new NotImplementedException();
+            // TODO: Ersetzen mit Webservice-Aufruf.
+            return Task.Run(() =>
+            {
+                return new ResultDto(true);
+            });
         }
     }
 }

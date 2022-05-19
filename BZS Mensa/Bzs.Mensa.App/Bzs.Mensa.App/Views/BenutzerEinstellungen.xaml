@@ -7,17 +7,17 @@
         <StackLayout>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -41,7 +41,7 @@
                 <Label Text="Laktosenfrei" Grid.Row="8" Grid.Column="1" VerticalOptions="Center"/>
                 <CheckBox IsChecked="false" Grid.Row="8" Grid.Column="2"></CheckBox>
                 <Button Text="Speichern"/>
-                <Button Text="Passwort ändern" Grid.Row="9" Grid.Column="1" Clicked="Button_Clicked"></Button>
+                <Button Text="Passwort ändern" Command="{Binding PasswortAendernCommand, Mode=OneWay}" Grid.Row="9" Grid.Column="1" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

@@ -12,12 +12,12 @@ namespace Bzs.Mensa.App.ViewModels
     /// </summary>
     public sealed class NeuesPwViewModel : ObservableObject
     {
+        private INavigation navigation;
         private string email;
         private string passwort1;
         private string passwort2;
         private string token;
-        private RelayCommand passwortAendern;
-        private INavigation navigation;
+        private RelayCommand passwortAendernCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NeuesPwViewModel" /> class.
@@ -31,10 +31,14 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         /// <param name="navigation">The navigation.</param>
         public NeuesPwViewModel(INavigation navigation)
+            : this()
         {
             this.navigation = navigation;
         }
 
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
         public string Email
         {
             get
@@ -44,10 +48,16 @@ namespace Bzs.Mensa.App.ViewModels
 
             set
             {
-                this.email = value;
+                if (this.SetProperty(ref this.email, value))
+                {
+                    this.OnChangedEmail();
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the password 1.
+        /// </summary>
         public string Passwort1
         {
             get
@@ -57,10 +67,16 @@ namespace Bzs.Mensa.App.ViewModels
 
             set
             {
-                this.passwort1 = value;
+                if (this.SetProperty(ref this.passwort1, value))
+                {
+                    this.OnChangedPasswort1();
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the password 2.
+        /// </summary>
         public string Passwort2
         {
             get
@@ -70,10 +86,16 @@ namespace Bzs.Mensa.App.ViewModels
 
             set
             {
-                this.passwort2 = value;
+                if (this.SetProperty(ref this.passwort2, value))
+                {
+                    this.OnChangedPasswort2();
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the token.
+        /// </summary>
         public string Token
         {
             get
@@ -83,20 +105,71 @@ namespace Bzs.Mensa.App.ViewModels
 
             set
             {
-                this.token = value;
-            }
-        }
-        public RelayCommand PasswortAendern
-        {
-            get
-            {
-                return this.passwortAendern ?? (this.passwortAendern = new RelayCommand(this.ExecutePasswortAendernCommand));
+                if (this.SetProperty(ref this.token, value))
+                {
+                    this.OnChangedToken();
+                }
             }
         }
 
+        /// <summary>
+        /// Gets the password change command.
+        /// </summary>
+        public RelayCommand PasswortAendernCommand
+        {
+            get
+            {
+                return this.passwortAendernCommand ?? (this.passwortAendernCommand = new RelayCommand(this.ExecutePasswortAendernCommand, this.CanExecutePasswortAendernCommand));
+            }
+        }
+
+        /// <summary>
+        /// Called when the email changed.
+        /// </summary>
+        private void OnChangedEmail()
+        {
+            this.PasswortAendernCommand.NotifyCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// Called when the password 1 changed.
+        /// </summary>
+        private void OnChangedPasswort1()
+        {
+            this.PasswortAendernCommand.NotifyCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// Called when the password 2 changed.
+        /// </summary>
+        private void OnChangedPasswort2()
+        {
+            this.PasswortAendernCommand.NotifyCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// Called when the token changed.
+        /// </summary>
+        private void OnChangedToken()
+        {
+            this.PasswortAendernCommand.NotifyCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether the password change command can execute.
+        /// </summary>
+        /// <returns>The command can execute.</returns>
+        private bool CanExecutePasswortAendernCommand()
+        {
+            return !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Passwort1) && !string.IsNullOrEmpty(this.Passwort2) && this.Passwort1 == this.Passwort2 && !string.IsNullOrEmpty(this.Token);
+        }
+
+        /// <summary>
+        /// Executes the password change command.
+        /// </summary>
         private async void ExecutePasswortAendernCommand()
         {
-            if(this.passwort1 == this.passwort2)
+            if (this.CanExecutePasswortAendernCommand())
             {
                 BenutzerNeuesPasswortDto abfrage = new BenutzerNeuesPasswortDto();
                 abfrage.Email = this.email;
@@ -105,19 +178,15 @@ namespace Bzs.Mensa.App.ViewModels
                 
                 BenutzerServiceProxy service = new BenutzerServiceProxy();
                 ResultDto result = await service.SetChangeBenutzerPasswort(abfrage).ConfigureAwait(true);
-
                 if (result.Succsessful)
                 {
+                    await App.Current.MainPage.DisplayAlert("Passwort", "Das neue Passwort wurde gesetzt.", "Ok").ConfigureAwait(true);
                     await this.navigation.PopAsync().ConfigureAwait(true);
                 }
                 else
                 {
-                    //TO-DO Messagebox anzeigen
+                    await App.Current.MainPage.DisplayAlert("Fehler", "Fehler beim Ändern des Passwortes.", "Ok").ConfigureAwait(true);
                 }
-            }
-            else
-            {
-                //To-Do Passwort nicht gleich zeigen
             }
         }
     }

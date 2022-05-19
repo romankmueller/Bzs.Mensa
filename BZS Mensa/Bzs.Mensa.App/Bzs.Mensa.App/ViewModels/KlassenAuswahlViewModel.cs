@@ -72,6 +72,9 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         public ObservableCollection<KlasseEditDto> KlasseItems { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the selected class.
+        /// </summary>
         public KlasseEditDto SelectedKlasse
         {
             get
