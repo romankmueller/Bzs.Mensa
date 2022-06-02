@@ -19,9 +19,11 @@ namespace Bzs.Mensa.App.Services
         }
 
         /// <inheritdoc />
-        public Task<KlasseEditDto> GetKlasseAsync(Guid id)
+        public async Task<KlasseEditDto> GetKlasseAsync(Guid id)
         {
-            return Task.Run(() =>
+
+            return await this.GetAsync<KlasseEditDto>("klasse/item/" + id).ConfigureAwait(true);
+            /*return Task.Run(() =>
             {
                 KlasseEditDto data = new KlasseEditDto();
                 data.Id = id;
@@ -29,37 +31,40 @@ namespace Bzs.Mensa.App.Services
                 data.Schicht1 = false;
                 data.Schicht2 = true;
                 return data;
-            });
+            });*/
         }
 
         /// <inheritdoc />
-        public Task<List<KlasseEditDto>> GetKlassenAsync()
+        public async Task<List<KlasseEditDto>> GetKlassenAsync()
         {
-            return Task.Run(() =>
+            /*return Task.Run(() =>
             {
                 List<KlasseEditDto> data = new List<KlasseEditDto>();
                 data.Add(new KlasseEditDto(Guid.NewGuid(), @"F21"));
                 data.Add(new KlasseEditDto(Guid.NewGuid(), @"H21"));
                 return data;
-            });
+            });*/
+            return await this.GetListAsync<KlasseEditDto>("klasse").ConfigureAwait(true);
         }
 
         /// <inheritdoc />
-        public Task<ResultDto> SaveKlasseAsync(KlasseEditDto item)
+        public async Task<ResultDto> SaveKlasseAsync(KlasseEditDto item)
         {
-            return Task.Run(() =>
+            /*return Task.Run(() =>
             {
                 return new ResultDto(true);
-            });
+            });*/
+            return await this.PostAsync<KlasseEditDto, ResultDto>("klasse/item",item).ConfigureAwait(true);
         }
 
         /// <inheritdoc />
-        public Task<ResultDto> DeleteKlasseAsync(Guid id)
+        public async Task<ResultDto> DeleteKlasseAsync(Guid id)
         {
-            return Task.Run(() =>
+            /*return Task.Run(() =>
             {
                 return new ResultDto(true);
-            });
+            });*/
+            return await this.DeleteAsync<ResultDto>("klasse/item/" + id).ConfigureAwait(true);
         }
     }
 }

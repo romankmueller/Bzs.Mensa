@@ -18,9 +18,9 @@ namespace Bzs.Mensa.App.Services
         }
 
         /// <inheritdoc />
-        public Task<EssenUebersichtDto> GetEssenUebersichtAsync(Guid userId)
+        public async Task<EssenUebersichtDto> GetEssenUebersichtAsync(Guid userId)
         {
-            throw new NotImplementedException();
+            return await this.GetAsync<EssenUebersichtDto>("essen/uebersicht/" + userId).ConfigureAwait(true);
         }
 
         /// <inheritdoc />
