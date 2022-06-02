@@ -4,7 +4,6 @@ using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 
 namespace Bzs.Mensa.Server.Services
 {
@@ -20,6 +19,29 @@ namespace Bzs.Mensa.Server.Services
         public EssenService(IConfiguration configuration)
             : base(configuration)
         {
+        }
+
+        /// <inheritdoc />
+        public async Task<EssenUebersichtDto> GetEssenUebersichtAsync(Guid userId)
+        {
+            EssenUebersichtDto data = new EssenUebersichtDto();
+            DateTime heute = DateTime.Today;
+
+            using (BzsMensaContext ctx = this.CreateContext())
+            {
+                for (int i = 0; i < 14; i++)
+                {
+                    EssenWocheDto essenWocheDto = new EssenWocheDto();
+                    essenWocheDto.Datum = heute.AddDays(i);
+                    essenWocheDto.Angemeldet = ctx.Essens.Any(f => f.BenutzerId == userId && f.Datum == essenWocheDto.Datum && !f.Geloescht);
+                    essenWocheDto.MenuBeschreibung = ctx.EssenMenus.FirstOrDefault(f => f.Datum == essenWocheDto.Datum && !f.Geloescht)?.MenuBeschreibung ?? String.Empty;
+                    essenWocheDto.FeiertagBezeichnung = ctx.Feiertags.FirstOrDefault(f => f.Datum == essenWocheDto.Datum && !f.Geloescht)?.Bezeichnung ?? String.Empty;
+
+                    data.EssenWoche.Add(essenWocheDto);
+                }
+            }
+
+            return data;
         }
 
         /// <inheritdoc />
@@ -107,28 +129,7 @@ namespace Bzs.Mensa.Server.Services
             }
         }
 
-        public EssenUebersichtDto GetEssenUebersicht()
-        {
-            EssenUebersichtDto data = new EssenUebersichtDto();
-            DateTime heute = DateTime.Today;
-
-            using (BzsMensaContext ctx = this.CreateContext())
-            {
-                for (int i = 0; i < 14; i++)
-                {
-                    EssenWocheDto essenWocheDto = new EssenWocheDto();
-                    essenWocheDto.Datum = heute.AddDays(i);
-                    essenWocheDto.Angemeldet = ctx.Essens.Any(f => f.BenutzerId == Guid.Empty && f.Datum == essenWocheDto.Datum && !f.Geloescht);
-                    essenWocheDto.MenuBeschreibung = ctx.EssenMenus.FirstOrDefault(f => f.Datum == essenWocheDto.Datum && !f.Geloescht)?.MenuBeschreibung ?? String.Empty;
-                    essenWocheDto.FeiertagBezeichnung = ctx.Feiertags.FirstOrDefault(f => f.Datum == essenWocheDto.Datum && !f.Geloescht)?.Bezeichnung ?? String.Empty;
-
-                    data.EssenWoche.Add(essenWocheDto);
-                }
-            }
-
-            return data;
-        }
-
+        /// <inheritdoc />
         public async Task<UebersichtTagReportDto> GetUebersichtTagReport(DateTime DatumVon, DateTime DatumBis)
         {
             UebersichtTagReportDto data = new UebersichtTagReportDto();
@@ -168,8 +169,6 @@ namespace Bzs.Mensa.Server.Services
                 }
 
             }
-
-
 
             return data;
         }

@@ -18,7 +18,7 @@ namespace Bzs.Mensa.App.Services
         }
 
         /// <inheritdoc />
-        public Task<ResultDto> DeleteEssenAsync(Guid id)
+        public Task<EssenUebersichtDto> GetEssenUebersichtAsync(Guid userId)
         {
             throw new NotImplementedException();
         }
@@ -31,6 +31,18 @@ namespace Bzs.Mensa.App.Services
 
         /// <inheritdoc />
         public Task<ResultDto> SaveEssenAsync(EssenEditDto item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public Task<ResultDto> DeleteEssenAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public Task<UebersichtTagReportDto> GetUebersichtTagReport(DateTime DatumVon, DateTime DatumBis)
         {
             throw new NotImplementedException();
         }

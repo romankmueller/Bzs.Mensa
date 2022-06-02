@@ -25,6 +25,18 @@ namespace Bzs.Mensa.Server.Web.Controllers
         }
 
         /// <summary>
+        /// Returns the meal overview.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>The data.</returns>
+        [HttpPost(@"uebersicht/{userId}")]
+        public async Task<ActionResult<EssenUebersichtDto>> GetEssenUebersicht(Guid userId)
+        {
+            this.SetResponseHeaderCacheExpiration();
+            return await this.essenService.GetEssenUebersichtAsync(userId).ConfigureAwait(true);
+        }
+
+        /// <summary>
         /// Returns multiple meals according to the request data.
         /// </summary>
         /// <param name="requestData">The request data.</param>

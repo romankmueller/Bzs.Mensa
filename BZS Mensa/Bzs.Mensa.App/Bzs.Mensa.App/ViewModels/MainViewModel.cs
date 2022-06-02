@@ -13,7 +13,6 @@ namespace Bzs.Mensa.App.ViewModels
     public sealed class MainViewModel : ObservableObject
     {
         private INavigation navigation;
-        private ObservableCollection<EssenEditDto> items;
         private RelayCommand benutzerEinstellungenCommand;
 
         /// <summary>
@@ -21,18 +20,18 @@ namespace Bzs.Mensa.App.ViewModels
         /// </summary>
         public MainViewModel()
         {
-            this.items = new ObservableCollection<EssenEditDto>();
+            this.Items = new ObservableCollection<EssenEditDto>();
             EssenEditDto essen1 = new EssenEditDto();
             essen1.Id = new System.Guid();
             essen1.Essen = true;
             essen1.Datum = System.DateTime.Today;
-            items.Add(essen1);
+            this.Items.Add(essen1);
 
             EssenEditDto essen2 = new EssenEditDto();
             essen2.Id = new System.Guid();
             essen2.Essen = true;
             essen2.Datum = System.DateTime.Today.AddDays(1);
-            items.Add(essen2);
+            this.Items.Add(essen2);
         }
 
         /// <summary>
@@ -57,6 +56,11 @@ namespace Bzs.Mensa.App.ViewModels
         }
 
         /// <summary>
+        /// Gets the items.
+        /// </summary>
+        public ObservableCollection<EssenEditDto> Items { get; }
+
+        /// <summary>
         /// Returns a value indicating whether the user settings command can execute.
         /// </summary>
         /// <returns>The command can execute.</returns>
@@ -73,14 +77,6 @@ namespace Bzs.Mensa.App.ViewModels
             if (this.CanExecuteBenutzerEinstellungenCommand())
             {
                 await this.navigation.PushAsync(new BenutzerEinstellungen()).ConfigureAwait(true);
-            }
-        }
-
-        public ObservableCollection<EssenEditDto> Items
-        {
-            get
-            {
-                return this.items;
             }
         }
     }
