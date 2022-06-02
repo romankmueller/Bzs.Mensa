@@ -1,13 +1,13 @@
-﻿using Bzs.Mensa.Server.Services;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Bzs.Mensa.Server.Services;
 using Bzs.Mensa.Server.Services.Security;
 using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace Bzs.Mensa.Server.Web.Controllers
 {
@@ -33,28 +33,6 @@ namespace Bzs.Mensa.Server.Web.Controllers
             this.configuration = configuration;
             this.securityService = securityService;
             this.benutzerService = benutzerService;
-        }
-
-        /// <summary>
-        /// Tests the controller.
-        /// </summary>
-        /// <returns>The result.</returns>
-        [HttpGet("test")]
-        public ActionResult<string> TestMitPfad()
-        {
-            this.SetResponseHeaderCacheExpiration();
-            return "Test: OK";
-        }
-
-        /// <summary>
-        /// Tests the controller.
-        /// </summary>
-        /// <returns>The result.</returns>
-        [HttpGet()]
-        public ActionResult<string> TestOhnePfad()
-        {
-            this.SetResponseHeaderCacheExpiration();
-            return "OK";
         }
 
         /// <summary>
