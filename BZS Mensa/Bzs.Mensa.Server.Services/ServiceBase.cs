@@ -1,6 +1,8 @@
 ﻿using System.Configuration;
+using System.Diagnostics;
 using System.Reflection;
 using Bzs.Mensa.Server.DataAccess.Context;
+using Bzs.Mensa.Server.DataAccess.Models;
 using log4net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +41,30 @@ namespace Bzs.Mensa.Server.Services
         protected BzsMensaContext CreateContext()
         {
             return new BzsMensaContext(this.optionsBuilder.Options);
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the database is alive.
+        /// </summary>
+        public bool IsDatabaseAlive
+        {
+            get
+            {
+                try
+                {
+                    using (BzsMensaContext ctx = this.CreateContext())
+                    {
+                        List<Benutzer> data = ctx.Benutzers.ToList();
+                        return true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.Write(e);
+                }
+
+                return false;
+            }
         }
 
         /// <summary>

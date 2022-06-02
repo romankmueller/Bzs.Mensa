@@ -1,6 +1,8 @@
-﻿using Bzs.Mensa.Shared.DataTransferObjects;
+﻿using Bzs.Mensa.Server.Services;
+using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace Bzs.Mensa.Server.Web.Controllers
 {
@@ -21,6 +23,24 @@ namespace Bzs.Mensa.Server.Web.Controllers
         public BenutzerController(IConfiguration configuration, IBenutzerService benutzerService)
         {
             this.benutzerService = benutzerService;
+        }
+
+        /// <summary>
+        /// Returns a meal.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The data.</returns>
+        [HttpGet(@"ping")]
+        public async Task<ActionResult<string>> PingAsync()
+        {
+            this.SetResponseHeaderCacheExpiration();
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(@"---------- PING ----------");
+            sb.Append(@"Database: ");
+            sb.AppendLine(((BenutzerService)this.benutzerService).IsDatabaseAlive ? @"Connected" : @"Disconnected");
+
+            return sb.ToString();
         }
 
         /// <summary>
