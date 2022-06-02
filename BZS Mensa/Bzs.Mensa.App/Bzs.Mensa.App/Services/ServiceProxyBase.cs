@@ -17,7 +17,7 @@ namespace Bzs.Mensa.App.Services
         /// </summary>
         protected ServiceProxyBase()
         {
-            this.BaseUri = new Uri(@"https://xxx.ch/api/");
+            this.BaseUri = new Uri(@"https://bzsmensa.azurewebsites.net/api/");
         }
 
         /// <summary>

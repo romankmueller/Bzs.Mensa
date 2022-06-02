@@ -1,11 +1,10 @@
-﻿using Bzs.Mensa.App.Services;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Bzs.Mensa.App.Services;
 using Bzs.Mensa.Shared.DataTransferObjects;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Bzs.Mensa.App.ViewModels
