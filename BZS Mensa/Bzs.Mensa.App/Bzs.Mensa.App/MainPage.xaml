@@ -11,10 +11,14 @@
     </ContentPage.ToolbarItems>
 
     <StackLayout Margin="20">
-        <ListView ItemsSource="{Binding Items}">
+        <ListView ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Datum}" Detail="{Binding MenuBeschreibung}"/>
+                    <ViewCell>
+                        <Button Text="Abmelden" Command="{Binding AbmeldenCommand}"/>
+                        <Label Text="{Binding Datum}" Detail="{Binding MenuBeschreibung}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextAlignment="Center"/>
+                        <Button Text="Anmelden" Command="{Binding AnmeldenCommand}"/>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

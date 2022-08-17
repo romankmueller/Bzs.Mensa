@@ -18,6 +18,7 @@ namespace Bzs.Mensa.App.ViewModels
     {
         private INavigation navigation;
         private RelayCommand benutzerEinstellungenCommand;
+        private EssenWocheDto selectedItem;
         private async Task RefreshItemsAsync()
         {
             EssenServiceProxy proxy = new EssenServiceProxy();
@@ -88,6 +89,50 @@ namespace Bzs.Mensa.App.ViewModels
             if (this.CanExecuteBenutzerEinstellungenCommand())
             {
                 await this.navigation.PushAsync(new BenutzerEinstellungen()).ConfigureAwait(true);
+            }
+        }
+
+        public EssenWocheDto SelectedItem
+        {
+            get
+            {
+                return this.selectedItem;
+            }
+
+            set { this.selectedItem; }
+            
+        }
+
+        public RelayCommand AnmeldenCommand
+        {
+            get
+            {
+                return this.AnmeldenCommand ?? (this.AnmeldenCommand = new RelayCommand(this.ExecuteAnmeldenCommand));
+            }
+        }
+
+        private async void ExecuteAnmeldenCommand()
+        {
+            EssenEditDto essenEditDto = new EssenEditDto();
+            essenEditDto.Essen = true;
+        }
+
+
+        public RelayCommand AbmeldenCommand
+        {
+            get
+            {
+                return this.AbmeldenCommand ?? (this.AbmeldenCommand = new RelayCommand(this.ExecuteAbmeldenCommand));
+            }
+        }
+
+        private async void ExecuteAnmeldenCommand()
+        {
+            if (this.ExecuteAbmeldenCommand())
+            {
+                EssenEditDto essenEditDto = new EssenEditDto();
+                essenEditDto.Essen = false;
+                essenEditDto.datum = this.SelectedItem.Datum; 
             }
         }
     }
