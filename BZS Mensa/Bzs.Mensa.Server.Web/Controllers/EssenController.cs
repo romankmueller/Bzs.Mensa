@@ -29,7 +29,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns>The data.</returns>
-        [HttpPost(@"uebersicht/{userId}")]
+        [HttpGet(@"uebersicht/{userId}")]
         public async Task<ActionResult<EssenUebersichtDto>> GetEssenUebersicht(Guid userId)
         {
             this.SetResponseHeaderCacheExpiration();
