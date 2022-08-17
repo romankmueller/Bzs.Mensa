@@ -39,7 +39,7 @@ namespace Bzs.Mensa.App.Services
             RestResponse response = null;
             try
             {
-                response = await client.ExecuteGetAsync(request).ConfigureAwait(true);
+                response = await client.GetAsync(request).ConfigureAwait(true);
             }
             catch (Exception e)
             {
@@ -100,6 +100,29 @@ namespace Bzs.Mensa.App.Services
             try
             {
                 response = await client.ExecutePostAsync(request).ConfigureAwait(true);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+
+            if (response != null)
+            {
+                return DtoBase.Create<TResult>(response.Content);
+            }
+
+            return null;
+        }
+
+        protected async Task<TResult> DeleteAsync<TResult>(string resource)
+            where TResult : DtoBase
+        {
+            RestClient client = new RestClient(this.BaseUri);
+            RestRequest request = new RestRequest(resource, Method.Delete);
+            RestResponse response = null;
+            try
+            {
+                response = await client.DeleteAsync(request).ConfigureAwait(true);
             }
             catch (Exception e)
             {

@@ -1,8 +1,11 @@
-﻿using Bzs.Mensa.App.Views;
+﻿using Bzs.Mensa.App.Services;
+using Bzs.Mensa.App.Views;
 using Bzs.Mensa.Shared.DataTransferObjects;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Bzs.Mensa.App.ViewModels
@@ -14,24 +17,31 @@ namespace Bzs.Mensa.App.ViewModels
     {
         private INavigation navigation;
         private RelayCommand benutzerEinstellungenCommand;
+        private async Task RefreshItemsAsync()
+        {
+            EssenServiceProxy proxy = new EssenServiceProxy();
+            EssenUebersichtDto data = null;
+            try 
+            { 
+                data = await proxy.GetEssenUebersichtAsync(new Guid("BEB1D92A-44BC-443D-92EE-2CCE50F6A902")).ConfigureAwait(true);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            foreach(EssenWocheDto item in data.EssenWoche)
+            {
+                this.Items.Add(item);
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel" /> class.
         /// </summary>
         public MainViewModel()
         {
-            this.Items = new ObservableCollection<EssenEditDto>();
-            EssenEditDto essen1 = new EssenEditDto();
-            essen1.Id = new System.Guid();
-            essen1.Essen = true;
-            essen1.Datum = System.DateTime.Today;
-            this.Items.Add(essen1);
-
-            EssenEditDto essen2 = new EssenEditDto();
-            essen2.Id = new System.Guid();
-            essen2.Essen = true;
-            essen2.Datum = System.DateTime.Today.AddDays(1);
-            this.Items.Add(essen2);
+            this.Items = new ObservableCollection<EssenWocheDto>();
+            this.RefreshItemsAsync().ConfigureAwait(true);
         }
 
         /// <summary>
@@ -58,7 +68,7 @@ namespace Bzs.Mensa.App.ViewModels
         /// <summary>
         /// Gets the items.
         /// </summary>
-        public ObservableCollection<EssenEditDto> Items { get; }
+        public ObservableCollection<EssenWocheDto> Items { get; }
 
         /// <summary>
         /// Returns a value indicating whether the user settings command can execute.

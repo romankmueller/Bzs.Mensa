@@ -7,7 +7,7 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
     /// Represents a meal overview data transfer object.
     /// </summary>
     [JsonObject]
-    public class EssenUebersichtDto
+    public class EssenUebersichtDto : DtoBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EssenUebersichtDto" /> class.
