@@ -12,7 +12,7 @@ namespace Bzs.Mensa.Server.UnitTest
     [TestClass]
     public sealed class AssemblyUnitTest
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         /// <summary>
         /// Initializes the test assembly.

@@ -36,10 +36,10 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public async Task<KlasseEditDto> GetKlasseAsync(Guid id)
         {
-            KlasseEditDto data = null;
+            KlasseEditDto? data = null;
             using (var ctx = this.CreateContext())
             {
-                Klasse entity = await ctx.Klasses.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Klasse? entity = await ctx.Klasses.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity != null)
                 {
                     if (!entity.Geloescht)
@@ -59,7 +59,7 @@ namespace Bzs.Mensa.Server.Services
             {
                 using (BzsMensaContext ctx = this.CreateContext())
                 {
-                    Klasse entity = await ctx.Klasses.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                    Klasse? entity = await ctx.Klasses.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                     if (entity == null)
                     {
                         entity = new Klasse();
@@ -100,7 +100,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Klasse entity = await ctx.Klasses.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Klasse? entity = await ctx.Klasses.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     return new ResultDto("Klasse konnte nicht gefunden werden.");

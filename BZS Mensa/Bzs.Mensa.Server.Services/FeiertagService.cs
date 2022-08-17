@@ -25,7 +25,7 @@ namespace Bzs.Mensa.Server.Services
         public async Task<List<FeiertagEditDto>> GetFeiertageAsync()
         {
             List<FeiertagEditDto> data = new List<FeiertagEditDto>();
-            using (var ctx = this.CreateContext())
+            using (BzsMensaContext ctx = this.CreateContext())
             {
                 data = await ctx.Feiertags.Where(f => !f.Geloescht).Select(f => new FeiertagEditDto(f.Id, f.Bezeichnung, f.Datum)).ToListAsync().ConfigureAwait(true);
             }
@@ -34,12 +34,12 @@ namespace Bzs.Mensa.Server.Services
         }
 
         /// <inheritdoc />
-        public async Task<FeiertagEditDto> GetFeiertagAsync(Guid id)
+        public async Task<FeiertagEditDto?> GetFeiertagAsync(Guid id)
         {
-            FeiertagEditDto data = null;
-            using (var ctx = this.CreateContext())
+            FeiertagEditDto? data = null;
+            using (BzsMensaContext ctx = this.CreateContext())
             {
-                Feiertag entity = await ctx.Feiertags.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Feiertag? entity = await ctx.Feiertags.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity != null)
                 {
                     if (!entity.Geloescht)
@@ -59,7 +59,7 @@ namespace Bzs.Mensa.Server.Services
             {
                 using (BzsMensaContext ctx = this.CreateContext())
                 {
-                    Feiertag entity = await ctx.Feiertags.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                    Feiertag? entity = await ctx.Feiertags.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                     if (entity == null)
                     {
                         entity = new Feiertag();
@@ -98,7 +98,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Feiertag entity = await ctx.Feiertags.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Feiertag? entity = await ctx.Feiertags.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     return new ResultDto("Feiertag konnte nicht gefunden werden.");

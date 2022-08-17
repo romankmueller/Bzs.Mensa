@@ -54,10 +54,10 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public async Task<AllergieEditDto> GetAllergieAsync(Guid id)
         {
-            AllergieEditDto data = null;
+            AllergieEditDto? data = null;
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Allergie entity = await ctx.Allergies.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Allergie? entity = await ctx.Allergies.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity != null)
                 {
                     if (!entity.Geloescht)
@@ -77,7 +77,7 @@ namespace Bzs.Mensa.Server.Services
             {
                 using (BzsMensaContext ctx = this.CreateContext())
                 {
-                    Allergie entity = await ctx.Allergies.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                    Allergie? entity = await ctx.Allergies.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                     if (entity == null)
                     {
                         entity = new Allergie();
@@ -114,7 +114,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Allergie entity = await ctx.Allergies.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Allergie? entity = await ctx.Allergies.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     return new ResultDto("Allergie konnte nicht gefunden werden.");

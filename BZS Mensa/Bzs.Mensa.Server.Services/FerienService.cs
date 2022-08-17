@@ -35,10 +35,10 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public async Task<FerienEditDto> GetFerienAsync(Guid id)
         {
-            FerienEditDto data = null;
+            FerienEditDto? data = null;
             using (var ctx = this.CreateContext())
             {
-                Ferien entity = await ctx.Feriens.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Ferien? entity = await ctx.Feriens.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity != null)
                 {
                     if (!entity.Geloescht)
@@ -58,7 +58,7 @@ namespace Bzs.Mensa.Server.Services
             {
                 using (BzsMensaContext ctx = this.CreateContext())
                 {
-                    Ferien entity = await ctx.Feriens.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                    Ferien? entity = await ctx.Feriens.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                     if (entity == null)
                     {
                         entity = new Ferien();
@@ -99,7 +99,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Ferien entity = await ctx.Feriens.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Ferien? entity = await ctx.Feriens.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     return new ResultDto("Ferien konnte nicht gefunden werden.");

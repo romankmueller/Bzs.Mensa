@@ -44,8 +44,8 @@ namespace Bzs.Mensa.Server.Web.Controllers
         {
             this.SetResponseHeaderCacheExpiration();
 
-            string userName = null;
-            string password = null;
+            string? userName = null;
+            string? password = null;
 
             // Read user/password from HTTP header.
             if (this.Request.Headers.TryGetValue(@"Authorization", out StringValues authToken))

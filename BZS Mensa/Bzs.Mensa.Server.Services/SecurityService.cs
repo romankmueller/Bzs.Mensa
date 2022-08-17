@@ -3,6 +3,7 @@ using Bzs.Mensa.Server.DataAccess.Models;
 using Bzs.Mensa.Server.Services.Security;
 using Bzs.Mensa.Shared.DataTransferObjects;
 using Bzs.Mensa.Shared.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Bzs.Mensa.Server.Services
@@ -27,7 +28,7 @@ namespace Bzs.Mensa.Server.Services
             LoginResultDto result = new LoginResultDto();
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Benutzer entity = ctx.Benutzers.FirstOrDefault(f => f.BenutzerName == userName && !f.Geloescht);
+                Benutzer? entity = await ctx.Benutzers.FirstOrDefaultAsync(f => f.BenutzerName == userName && !f.Geloescht).ConfigureAwait(true);
                 if (entity != null)
                 {
                     if (entity.Passwort == password)
@@ -52,10 +53,10 @@ namespace Bzs.Mensa.Server.Services
         /// <returns>The authentication user.</returns>
         public AuthenticationUser GetLoginUser(string userName, string password)
         {
-            AuthenticationUser user = null;
+            AuthenticationUser? user = null;
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Benutzer entity = ctx.Benutzers.FirstOrDefault(f => f.BenutzerName == userName && !f.Geloescht);
+                Benutzer? entity = ctx.Benutzers.FirstOrDefault(f => f.BenutzerName == userName && !f.Geloescht);
                 if (entity != null)
                 {
                     ////if (PasswordHelper.AreEqual(password, entity.Passwort, entity.Salt))

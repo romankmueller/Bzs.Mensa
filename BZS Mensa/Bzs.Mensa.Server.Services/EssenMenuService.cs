@@ -24,10 +24,10 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public async Task<EssenMenuEditDto> EssenMenuAsync(EssenMenuRequestDto requestItem)
         {
-            EssenMenuEditDto item = null;
+            EssenMenuEditDto? item = null;
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                EssenMenu entity = await ctx.EssenMenus.FirstOrDefaultAsync(f => f.Datum == requestItem.Datum && !f.Geloescht).ConfigureAwait(true);
+                EssenMenu? entity = await ctx.EssenMenus.FirstOrDefaultAsync(f => f.Datum == requestItem.Datum && !f.Geloescht).ConfigureAwait(true);
                 if (entity != null)
                 {
                     item = new EssenMenuEditDto();
@@ -43,10 +43,10 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public async Task<EssenMenuEditDto> EssenMenuAsync(Guid id)
         {
-            EssenMenuEditDto item = null;
+            EssenMenuEditDto? item = null;
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                EssenMenu entity = await ctx.EssenMenus.FirstOrDefaultAsync(f => f.Id == id && !f.Geloescht).ConfigureAwait(true);
+                EssenMenu? entity = await ctx.EssenMenus.FirstOrDefaultAsync(f => f.Id == id && !f.Geloescht).ConfigureAwait(true);
                 if (entity != null)
                 {
                     item = new EssenMenuEditDto();
@@ -64,7 +64,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                EssenMenu entity = await ctx.EssenMenus.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                EssenMenu? entity = await ctx.EssenMenus.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     entity = new EssenMenu();
@@ -98,7 +98,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                EssenMenu entity = await ctx.EssenMenus.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                EssenMenu? entity = await ctx.EssenMenus.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     return new ResultDto("EssenMenu konnte nicht gefunden werden.");

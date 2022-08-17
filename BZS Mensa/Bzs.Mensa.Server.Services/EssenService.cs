@@ -33,7 +33,7 @@ namespace Bzs.Mensa.Server.Services
                 {
                     EssenWocheDto essenWocheDto = new EssenWocheDto();
                     essenWocheDto.Datum = heute.AddDays(i);
-                    essenWocheDto.Angemeldet = ctx.Essens.Any(f => f.BenutzerId == userId && f.Datum == essenWocheDto.Datum && !f.Geloescht);
+                    essenWocheDto.Angemeldet = await ctx.Essens.AnyAsync(f => f.BenutzerId == userId && f.Datum == essenWocheDto.Datum && !f.Geloescht).ConfigureAwait(true);
                     essenWocheDto.MenuBeschreibung = ctx.EssenMenus.FirstOrDefault(f => f.Datum == essenWocheDto.Datum && !f.Geloescht)?.MenuBeschreibung ?? String.Empty;
                     essenWocheDto.FeiertagBezeichnung = ctx.Feiertags.FirstOrDefault(f => f.Datum == essenWocheDto.Datum && !f.Geloescht)?.Bezeichnung ?? String.Empty;
 
@@ -47,10 +47,10 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public async Task<EssenEditDto> EssenAsync(Guid id)
         {
-            EssenEditDto essen = null;
+            EssenEditDto? essen = null;
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Essen entity = await ctx.Essens.FirstOrDefaultAsync(f => f.Id == id && !f.Geloescht).ConfigureAwait(true);
+                Essen? entity = await ctx.Essens.FirstOrDefaultAsync(f => f.Id == id && !f.Geloescht).ConfigureAwait(true);
                 if (entity != null)
                 {
                     essen = new EssenEditDto();
@@ -69,7 +69,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Essen entity = await ctx.Essens.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Essen? entity = await ctx.Essens.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     return new ResultDto("Essen konnte nicht gefunden werden.");
@@ -99,7 +99,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Essen entity = await ctx.Essens.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                Essen? entity = await ctx.Essens.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     entity = new Essen();

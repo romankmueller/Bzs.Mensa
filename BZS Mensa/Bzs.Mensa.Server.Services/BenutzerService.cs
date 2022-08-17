@@ -78,10 +78,10 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public async Task<BenutzerEditDto> GetBenutzerAsync(Guid id)
         {
-            BenutzerEditDto data = null;
+            BenutzerEditDto? data = null;
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Benutzer benutzer = await ctx.Benutzers
+                Benutzer? benutzer = await ctx.Benutzers
                     .Include(f => f.BenutzerAllergies)
                     .ThenInclude(f => f.Allergie)
                     .FirstOrDefaultAsync(f => f.Id == id && !f.Geloescht)
@@ -110,7 +110,7 @@ namespace Bzs.Mensa.Server.Services
             {
                 using (BzsMensaContext ctx = this.CreateContext())
                 {
-                    Benutzer entity = await ctx.Benutzers.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                    Benutzer? entity = await ctx.Benutzers.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                     if (entity == null)
                     {
                         entity = new Benutzer();
@@ -140,7 +140,7 @@ namespace Bzs.Mensa.Server.Services
 
                     foreach (BenutzerAllergieEditDto Ba in item.AllergieItems)
                     {
-                        BenutzerAllergie entityAllergie = ctx.BenutzerAllergies.FirstOrDefault(f => f.BenutzerId == item.Id && f.AllergieId == Ba.AllergieId);
+                        BenutzerAllergie? entityAllergie = ctx.BenutzerAllergies.FirstOrDefault(f => f.BenutzerId == item.Id && f.AllergieId == Ba.AllergieId);
                         if (entityAllergie == null)
                         {
                             BenutzerAllergie benutzerAllergie = new BenutzerAllergie();
@@ -172,7 +172,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Benutzer entity = await ctx.Benutzers.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
+                Benutzer? entity = await ctx.Benutzers.FirstOrDefaultAsync(f => f.Id == id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     return new ResultDto("Benutzer konnte nicht gefunden werden.");
@@ -203,7 +203,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Benutzer entity = await ctx.Benutzers.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                Benutzer? entity = await ctx.Benutzers.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     return new ResultDto("Benutzer konnte nicht gefunden werden.");
@@ -234,7 +234,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                Klasse KlasseEntity = ctx.Klasses.FirstOrDefault(f => f.Id == Guid.Empty);
+                Klasse? KlasseEntity = ctx.Klasses.FirstOrDefault(f => f.Id == Guid.Empty);
                 if (KlasseEntity == null)
                 {
                     KlasseEntity = new Klasse();
@@ -250,7 +250,7 @@ namespace Bzs.Mensa.Server.Services
                     KlasseEntity.Geloescht = false;
                 }
 
-                Benutzer entity = ctx.Benutzers.FirstOrDefault(f => f.BenutzerName == "admin");
+                Benutzer? entity = ctx.Benutzers.FirstOrDefault(f => f.BenutzerName == "admin");
                 if (entity == null)
                 {
                     entity = new Benutzer();

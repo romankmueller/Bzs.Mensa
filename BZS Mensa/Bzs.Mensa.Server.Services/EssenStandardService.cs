@@ -24,10 +24,10 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public async Task<EssenStandardEditDto> EssenStandardByBenutzerAsync(Guid benutzerId)
         {
-            EssenStandardEditDto item = null;
+            EssenStandardEditDto? item = null;
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                EssenStandard entity = await ctx.EssenStandards.FirstOrDefaultAsync(f => f.BenutzerId == benutzerId && !f.Geloescht).ConfigureAwait(true);
+                EssenStandard? entity = await ctx.EssenStandards.FirstOrDefaultAsync(f => f.BenutzerId == benutzerId && !f.Geloescht).ConfigureAwait(true);
                 if (entity != null)
                 {
                     item = new EssenStandardEditDto();
@@ -49,10 +49,10 @@ namespace Bzs.Mensa.Server.Services
         /// <inheritdoc />
         public async Task<EssenStandardEditDto> EssenStandardAsync(Guid id)
         {
-            EssenStandardEditDto item = null;
+            EssenStandardEditDto? item = null;
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                EssenStandard entity = await ctx.EssenStandards.FirstOrDefaultAsync(f => f.Id == id && !f.Geloescht).ConfigureAwait(true);
+                EssenStandard? entity = await ctx.EssenStandards.FirstOrDefaultAsync(f => f.Id == id && !f.Geloescht).ConfigureAwait(true);
                 if (entity != null)
                 {
                     item = new EssenStandardEditDto();
@@ -76,7 +76,7 @@ namespace Bzs.Mensa.Server.Services
         {
             using (BzsMensaContext ctx = this.CreateContext())
             {
-                EssenStandard entity = await ctx.EssenStandards.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
+                EssenStandard? entity = await ctx.EssenStandards.FirstOrDefaultAsync(f => f.Id == item.Id).ConfigureAwait(true);
                 if (entity == null)
                 {
                     entity = new EssenStandard();
