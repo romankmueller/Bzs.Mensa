@@ -19,23 +19,6 @@ namespace Bzs.Mensa.App.ViewModels
         private INavigation navigation;
         private RelayCommand benutzerEinstellungenCommand;
         private EssenWocheDto selectedItem;
-        private async Task RefreshItemsAsync()
-        {
-            EssenServiceProxy proxy = new EssenServiceProxy();
-            EssenUebersichtDto data = null;
-            try 
-            { 
-                data = await proxy.GetEssenUebersichtAsync(new Guid("BEB1D92A-44BC-443D-92EE-2CCE50F6A902")).ConfigureAwait(true);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            foreach(EssenWocheDto item in data.EssenWoche)
-            {
-                this.Items.Add(item);
-            }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel" /> class.
@@ -73,6 +56,42 @@ namespace Bzs.Mensa.App.ViewModels
         public ObservableCollection<EssenWocheDto> Items { get; }
 
         /// <summary>
+        /// Gets or sets the selected item.
+        /// </summary>
+        public EssenWocheDto SelectedItem
+        {
+            get
+            {
+                return this.selectedItem;
+            }
+
+            set { this.selectedItem; }
+            
+        }
+
+        /// <summary>
+        /// Gets the login command.
+        /// </summary>
+        public RelayCommand AnmeldenCommand
+        {
+            get
+            {
+                return this.AnmeldenCommand ?? (this.AnmeldenCommand = new RelayCommand(this.ExecuteAnmeldenCommand));
+            }
+        }
+
+        /// <summary>
+        /// Gets the logout command.
+        /// </summary>
+        public RelayCommand AbmeldenCommand
+        {
+            get
+            {
+                return this.AbmeldenCommand ?? (this.AbmeldenCommand = new RelayCommand(this.ExecuteAbmeldenCommand));
+            }
+        }
+
+        /// <summary>
         /// Returns a value indicating whether the user settings command can execute.
         /// </summary>
         /// <returns>The command can execute.</returns>
@@ -92,40 +111,18 @@ namespace Bzs.Mensa.App.ViewModels
             }
         }
 
-        public EssenWocheDto SelectedItem
-        {
-            get
-            {
-                return this.selectedItem;
-            }
-
-            set { this.selectedItem; }
-            
-        }
-
-        public RelayCommand AnmeldenCommand
-        {
-            get
-            {
-                return this.AnmeldenCommand ?? (this.AnmeldenCommand = new RelayCommand(this.ExecuteAnmeldenCommand));
-            }
-        }
-
+        /// <summary>
+        /// Executes the login command.
+        /// </summary>
         private async void ExecuteAnmeldenCommand()
         {
             EssenEditDto essenEditDto = new EssenEditDto();
             essenEditDto.Essen = true;
         }
 
-
-        public RelayCommand AbmeldenCommand
-        {
-            get
-            {
-                return this.AbmeldenCommand ?? (this.AbmeldenCommand = new RelayCommand(this.ExecuteAbmeldenCommand));
-            }
-        }
-
+        /// <summary>
+        /// Executes the logout command.
+        /// </summary>
         private async void ExecuteAnmeldenCommand()
         {
             if (this.ExecuteAbmeldenCommand())
@@ -133,6 +130,28 @@ namespace Bzs.Mensa.App.ViewModels
                 EssenEditDto essenEditDto = new EssenEditDto();
                 essenEditDto.Essen = false;
                 essenEditDto.datum = this.SelectedItem.Datum; 
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the items.
+        /// </summary>
+        /// <returns>The task.</returns>
+        private async Task RefreshItemsAsync()
+        {
+            EssenServiceProxy proxy = new EssenServiceProxy();
+            EssenUebersichtDto data = null;
+            try
+            {
+                data = await proxy.GetEssenUebersichtAsync(new Guid("BEB1D92A-44BC-443D-92EE-2CCE50F6A902")).ConfigureAwait(true);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            foreach (EssenWocheDto item in data.EssenWoche)
+            {
+                this.Items.Add(item);
             }
         }
     }
