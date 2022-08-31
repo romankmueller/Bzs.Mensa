@@ -41,6 +41,11 @@ namespace Bzs.Mensa.App.Services
             throw new NotImplementedException();
         }
 
+        public Task<ResultDto> DeleteEssenAsync1(EssenEditDto essenEditDto)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc />
         public Task<UebersichtTagReportDto> GetUebersichtTagReport(DateTime DatumVon, DateTime DatumBis)
         {

@@ -37,30 +37,6 @@ namespace Bzs.Mensa.Server.Web.Controllers
         }
 
         /// <summary>
-        /// Returns multiple meals according to the request data.
-        /// </summary>
-        /// <param name="requestData">The request data.</param>
-        /// <returns>The data.</returns>
-        [HttpPost(@"multi/get")]
-        public async Task<ActionResult<EssenResponseDto>> MultiEssenAsync([FromBody] EssenRequestDto requestData)
-        {
-            this.SetResponseHeaderCacheExpiration();
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Saves multiple meals according to the items.
-        /// </summary>
-        /// <param name="items">The items to save.</param>
-        /// <returns>The result.</returns>
-        [HttpPost(@"multi/save")]
-        public async Task<ActionResult<ResultDto>> SaveMultiEssenAsync([FromBody] List<EssenRequestDto> items)
-        {
-            this.SetResponseHeaderCacheExpiration();
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Returns a meal.
         /// </summary>
         /// <param name="id">The identifier.</param>

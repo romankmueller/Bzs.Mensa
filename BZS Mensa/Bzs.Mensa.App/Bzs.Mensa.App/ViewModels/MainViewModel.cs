@@ -19,6 +19,9 @@ namespace Bzs.Mensa.App.ViewModels
         private INavigation navigation;
         private RelayCommand benutzerEinstellungenCommand;
         private EssenWocheDto selectedItem;
+        private RelayCommand anmeldenCommand;
+        private RelayCommand abmeldenCommand;
+        private Guid benutzerId = new Guid("BEB1D92A-44BC-443D-92EE-2CCE50F6A902");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel" /> class.
@@ -65,8 +68,10 @@ namespace Bzs.Mensa.App.ViewModels
                 return this.selectedItem;
             }
 
-            set { this.selectedItem; }
-            
+            set
+            {
+                this.selectedItem = value;
+            }
         }
 
         /// <summary>
@@ -76,7 +81,7 @@ namespace Bzs.Mensa.App.ViewModels
         {
             get
             {
-                return this.AnmeldenCommand ?? (this.AnmeldenCommand = new RelayCommand(this.ExecuteAnmeldenCommand));
+                return this.anmeldenCommand ?? (this.anmeldenCommand = new RelayCommand(this.ExecuteAnmeldenCommand));
             }
         }
 
@@ -87,7 +92,7 @@ namespace Bzs.Mensa.App.ViewModels
         {
             get
             {
-                return this.AbmeldenCommand ?? (this.AbmeldenCommand = new RelayCommand(this.ExecuteAbmeldenCommand));
+                return this.abmeldenCommand ?? (this.abmeldenCommand = new RelayCommand(this.ExecuteAbmeldenCommand));
             }
         }
 
@@ -118,18 +123,33 @@ namespace Bzs.Mensa.App.ViewModels
         {
             EssenEditDto essenEditDto = new EssenEditDto();
             essenEditDto.Essen = true;
+            essenEditDto.Datum = this.selectedItem.Datum;
+            essenEditDto.BenutzerId = benutzerId;
+            essenEditDto.DatumIso = this.selectedItem.DatumIso;
+            EssenServiceProxy proxy = new EssenServiceProxy();
+            ResultDto result = await proxy.SaveEssenAsync(essenEditDto);
+            if (result.Succsessful)
+            {
+                this.selectedItem.Angemeldet = true;
+            }
         }
+
+
 
         /// <summary>
         /// Executes the logout command.
         /// </summary>
-        private async void ExecuteAnmeldenCommand()
+        private async void ExecuteAbmeldenCommand()
         {
-            if (this.ExecuteAbmeldenCommand())
+            EssenEditDto essenEditDto = new EssenEditDto();
+            essenEditDto.Essen = false;
+            essenEditDto.BenutzerId = benutzerId;
+            essenEditDto.Datum = selectedItem.Datum;
+            EssenServiceProxy proxy = new EssenServiceProxy();
+            ResultDto result = await proxy.DeleteEssenAsync1(essenEditDto);
+            if (result.Succsessful)
             {
-                EssenEditDto essenEditDto = new EssenEditDto();
-                essenEditDto.Essen = false;
-                essenEditDto.datum = this.SelectedItem.Datum; 
+                this.selectedItem.Angemeldet = false;
             }
         }
 
@@ -143,7 +163,7 @@ namespace Bzs.Mensa.App.ViewModels
             EssenUebersichtDto data = null;
             try
             {
-                data = await proxy.GetEssenUebersichtAsync(new Guid("BEB1D92A-44BC-443D-92EE-2CCE50F6A902")).ConfigureAwait(true);
+                data = await proxy.GetEssenUebersichtAsync(benutzerId).ConfigureAwait(true);
             }
             catch (Exception ex)
             {

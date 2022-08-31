@@ -37,6 +37,9 @@ namespace Bzs.Mensa.Shared.Services
         /// <returns>The result.</returns>
         Task<ResultDto> DeleteEssenAsync(Guid id);
 
+
+        Task<ResultDto> DeleteEssenAsync1(EssenEditDto item);
+
         /// <summary>
         /// Returns the day overview report.
         /// </summary>
