@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:convertors="clr-namespace:Bzs.Mensa.App.Convertors"
              x:Class="Bzs.Mensa.App.MainPage"
              Title="Übersicht">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convertors:InverseBooleanConvertor x:Key="ibc" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Benutzer"
                      Command="{Binding BenutzerEinstellungenCommand}"
@@ -21,9 +26,12 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Button Text="Abmelden" Command="{Binding AbmeldenCommand}" />
-                            <Label Text="{Binding Datum}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                            <Button Text="Anmelden" Command="{Binding AnmeldenCommand}" />
+                            <Button Grid.Column="0" ImageSource="hand_thumb_up_blue" IsVisible="{Binding Angemeldet}"/>
+                            <Button Grid.Column="0" ImageSource="hand_thumb_up_plain" IsVisible="{Binding Angemeldet, Converter={StaticResource ibc}}" Command="{Binding Anmelden}"/>
+                            <Label Grid.Column="1" Text="{Binding Datum}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            <Button Grid.Column="2" ImageSource="hand_thumb_down_blue" IsVisible="{Binding Angemeldet, Converter={StaticResource ibc}}"/>
+                            <Button Grid.Column="2" ImageSource="hand_thumb_down_plain" IsVisible="{Binding Angemeldet}" Command="{Binding Abmelden}"/>
+
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

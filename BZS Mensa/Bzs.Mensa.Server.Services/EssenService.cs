@@ -70,7 +70,11 @@ namespace Bzs.Mensa.Server.Services
 
         public async Task<ResultDto> DeleteEssenAsync1(EssenEditDto item)
         {
-            if(item.Datum == ...)
+            DateTime aktuelleZeit = item.Datum.Date;
+            aktuelleZeit.AddHours(10);
+            aktuelleZeit.ToLocalTime();
+
+            if(aktuelleZeit == DateTime.UtcNow)
             {
                 using (BzsMensaContext ctx = this.CreateContext())
                 {
@@ -97,6 +101,10 @@ namespace Bzs.Mensa.Server.Services
                         return new ResultDto(e);
                     }
                 }
+            }
+            else
+            {
+                return new ResultDto(false);
             }
         }
 

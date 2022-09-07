@@ -44,6 +44,7 @@ namespace Bzs.Mensa.Shared.DataTransferObjects
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
+        [JsonProperty(@"Datum")]
         public DateTime Datum
         {
             get

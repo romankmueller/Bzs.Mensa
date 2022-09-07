@@ -22,6 +22,7 @@ namespace Bzs.Mensa.App.ViewModels
         private RelayCommand anmeldenCommand;
         private RelayCommand abmeldenCommand;
         private Guid benutzerId = new Guid("BEB1D92A-44BC-443D-92EE-2CCE50F6A902");
+        private string daumenRunter = String.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel" /> class.
@@ -73,6 +74,7 @@ namespace Bzs.Mensa.App.ViewModels
                 this.selectedItem = value;
             }
         }
+
 
         /// <summary>
         /// Gets the login command.
@@ -173,6 +175,6 @@ namespace Bzs.Mensa.App.ViewModels
             {
                 this.Items.Add(item);
             }
-        }
+        } 
     }
 }

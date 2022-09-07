@@ -11,6 +11,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\hand_thumb_down_blue.png" />
+    <None Remove="Images\hand_thumb_down_plain.png" />
+    <None Remove="Images\hand_thumb_up_blue.png" />
+    <None Remove="Images\hand_thumb_up_plain.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\hand_thumb_down_blue.png" />
+    <EmbeddedResource Include="Images\hand_thumb_down_plain.png" />
+    <EmbeddedResource Include="Images\hand_thumb_up_blue.png" />
+    <EmbeddedResource Include="Images\hand_thumb_up_plain.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="RestSharp" Version="107.3.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.2" />
