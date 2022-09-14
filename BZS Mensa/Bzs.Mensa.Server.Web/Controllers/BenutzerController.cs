@@ -34,12 +34,10 @@ namespace Bzs.Mensa.Server.Web.Controllers
         public async Task<ActionResult<string>> PingAsync()
         {
             this.SetResponseHeaderCacheExpiration();
-
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(@"---------- PING ----------");
             sb.Append(@"Database: ");
             sb.AppendLine(((BenutzerService)this.benutzerService).IsDatabaseAlive ? @"Connected" : @"Disconnected");
-
             return sb.ToString();
         }
 

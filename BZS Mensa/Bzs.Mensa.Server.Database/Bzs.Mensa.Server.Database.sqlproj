@@ -64,6 +64,7 @@
     <None Include="Bzs.Mensa.Server.Database.publish.xml" />
     <None Include="Scripts\Populate_UnitTest.sql" />
     <None Include="Bzs.Mensa.Server.Database.PROD.publish.xml" />
+    <None Include="Bzs.Mensa.Server.Database.Azure.publish.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Benutzer.sql" />
