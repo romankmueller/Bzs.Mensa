@@ -32,6 +32,7 @@ namespace Bzs.Mensa.Server.Web.Controllers
         [HttpGet(@"uebersicht/{userId}")]
         public async Task<ActionResult<EssenUebersichtDto>> GetEssenUebersicht(Guid userId)
         {
+            
             this.SetResponseHeaderCacheExpiration();
             return await this.essenService.GetEssenUebersichtAsync(userId).ConfigureAwait(true);
         }

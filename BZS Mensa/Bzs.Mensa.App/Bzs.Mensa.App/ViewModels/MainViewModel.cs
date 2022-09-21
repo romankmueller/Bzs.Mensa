@@ -21,7 +21,7 @@ namespace Bzs.Mensa.App.ViewModels
         private EssenWocheDto selectedItem;
         private RelayCommand anmeldenCommand;
         private RelayCommand abmeldenCommand;
-        private Guid benutzerId = new Guid("BEB1D92A-44BC-443D-92EE-2CCE50F6A902");
+        private Guid benutzerId = new Guid("AF02063C-EE6A-4C82-A15D-40A121B9315B");
         private string daumenRunter = String.Empty;
 
         /// <summary>
