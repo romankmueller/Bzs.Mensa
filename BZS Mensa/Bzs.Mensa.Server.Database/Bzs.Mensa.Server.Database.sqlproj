@@ -76,5 +76,6 @@
     <Build Include="dbo\Tables\Ferien.sql" />
     <Build Include="dbo\Tables\EssenStandard.sql" />
     <Build Include="dbo\Tables\EssenMenu.sql" />
+    <Build Include="Scripts\Populate_Data.sql" />
   </ItemGroup>
 </Project>
