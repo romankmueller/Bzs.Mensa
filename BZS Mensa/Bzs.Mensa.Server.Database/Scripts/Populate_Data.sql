@@ -21,7 +21,7 @@ GO
 INSERT INTO [dbo].[EssenMenu] ([Id], [Datum], [MenuBeschreibung], [Geloescht]) VALUES ('816EE6EB-CDF4-4ADE-8CD5-D82D93ACE2A7', '2022-09-21', 'Schnitzel Pommes', 0)
 GO
 
-INSERT INTO [dbo],[EssenStandard] ([Id], [BenutzerId], [Mo], [Di], [Mi], [Do], [Fr], [Sa], [So], [Geloescht]) VALUES ('CFD2BDC1-9CDC-4BE4-9760-795AA6FAFFAD', 'AF02063C-EE6A-4C82-A15D-40A121B9315B', 1, 1, 1, 1, 1, 0, 0, 0)
+INSERT INTO [dbo].[EssenStandard] ([Id], [BenutzerId], [Mo], [Di], [Mi], [Do], [Fr], [Sa], [So], [Geloescht]) VALUES ('CFD2BDC1-9CDC-4BE4-9760-795AA6FAFFAD', 'AF02063C-EE6A-4C82-A15D-40A121B9315B', 1, 1, 1, 1, 1, 0, 0, 0)
 GO
 
 INSERT INTO [dbo].[Essen] ([Id], [Datum], [BenutzerId], [Geloescht]) VALUES ('76EADD34-4B8B-4EC6-9EC6-F69A1539ED43', '2022-09-21', 'AF02063C-EE6A-4C82-A15D-40A121B9315B', 0)
